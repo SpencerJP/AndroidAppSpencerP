@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MADAssignment1</string>
+    <string name="title_trackable_list">Trackable List</string>
+    <string name="title_activity_tracking">Tracking List</string>
+    <string name="title_edit_tracking">Add/Edit Tracking</string>
+
 </resources>

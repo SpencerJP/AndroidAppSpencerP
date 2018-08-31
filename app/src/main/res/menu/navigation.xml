@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_trackables"
+        android:icon="@drawable/ic_directions_car_black_24dp"
+        android:title="Food Trucks" />
+
+    <item
+        android:id="@+id/navigation_trackers"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Trackers" />
+
+</menu>

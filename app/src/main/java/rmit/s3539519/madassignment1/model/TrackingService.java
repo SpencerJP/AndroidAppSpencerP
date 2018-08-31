@@ -37,21 +37,7 @@ public class TrackingService
 
    // This is only a data access object (DAO)
    // You must extract data and place in your model
-   public static class TrackingInfo
-   {
-      public Date date;
-      public int trackableId;
-      public int stopTime;
-      public double latitude;
-      public double longitude;
 
-      @Override
-      public String toString()
-      {
-         return String.format(Locale.getDefault(), "Date/Time=%s, trackableId=%d, stopTime=%d, lat=%.5f, long=%.5f", DateFormat.getDateTimeInstance(
-                 DateFormat.SHORT, DateFormat.MEDIUM).format(date), trackableId, stopTime, latitude, longitude);
-      }
-   }
 
    // check if the source date is with the range of target date +/- minutes and seconds
    private boolean dateInRange(Date source, Date target, int periodMinutes, int periodSeconds)

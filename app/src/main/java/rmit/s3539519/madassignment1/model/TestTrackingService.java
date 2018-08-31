@@ -32,7 +32,7 @@ public class TestTrackingService
          String searchDate = "05/07/2018 1:05:00 PM";
          int searchWindow = 5; // +/- 5 mins
          Date date = dateFormat.parse(searchDate);
-         List<TrackingService.TrackingInfo> matched = trackingService
+         List<TrackingInfo> matched = trackingService
                  .getTrackingInfoForTimeRange(date, searchWindow, 0);
          Log.i(LOG_TAG, String.format("Matched Query: %s, +/-%d mins", searchDate, searchWindow));
          trackingService.log(matched);
