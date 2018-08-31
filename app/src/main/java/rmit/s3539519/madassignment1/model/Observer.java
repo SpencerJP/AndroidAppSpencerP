@@ -15,7 +15,6 @@ public class Observer {
 
     // empty constructor
     private Observer() {
-        trackableImporter.stringToFoodTruckMap(trackableImporter.readFile(context, R.raw.food_truck_data), trackables);
     }
     // cloned singleton methods from Casper's TrackingService.java
     private static class ObserverSingleton
@@ -29,11 +28,15 @@ public class Observer {
         return Observer.ObserverSingleton.INSTANCE;
     }
 
+    public void importTrackables() {
+        trackableImporter.stringToFoodTruckMap(trackableImporter.readFile(context, R.raw.food_truck_data), trackables);
+    }
+
     public Map<Integer, AbstractTrackable> getTrackables() { return trackables;}
     public Map<String, Tracking> getTrackings() { return trackings;}
 
     public boolean addTracking(Tracking tracking) {
-        if (tracking.checkIsValid()) {
+        if (tracking.isValid()) {
             trackings.put(tracking.getTrackingId(), tracking);
             return true;
         } else {

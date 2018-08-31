@@ -72,4 +72,8 @@ public class Tracking {
     public void setMeetLocation(Pair<Double, Double> meetLocation) {
         this.meetLocation = meetLocation;
     }
+
+    public boolean isValid() {
+        return false;
+    }
 }

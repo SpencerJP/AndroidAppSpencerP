@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         HashMap<Integer, AbstractTrackable> trackables = new HashMap<Integer, AbstractTrackable>();
         observer = Observer.getSingletonInstance(this);
+        observer.importTrackables();
         trackables = new HashMap<Integer, AbstractTrackable>(observer.getTrackables());
-
 
         Spinner mSpinner = findViewById(R.id.categorySpinner);
         categorySpinnerAdapter = new CategorySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, this.extractCategoryList(trackables) );
@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         mSpinner.setOnItemSelectedListener(categorySpinnerListener);
         mRecyclerView.setAdapter(tAdapter);
 
-        ;
     }
 
     private List<String> extractCategoryList(Map<Integer, AbstractTrackable> trackableList) {
