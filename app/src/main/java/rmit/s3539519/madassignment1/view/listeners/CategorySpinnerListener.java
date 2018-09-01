@@ -1,9 +1,12 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.listeners;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Filter;
+
+import rmit.s3539519.madassignment1.view.CategorySpinnerAdapter;
+import rmit.s3539519.madassignment1.view.TrackableAdapter;
 
 public class CategorySpinnerListener implements AdapterView.OnItemSelectedListener {
 

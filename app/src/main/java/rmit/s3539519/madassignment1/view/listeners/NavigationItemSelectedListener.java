@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.listeners;
 
 import android.content.Context;
 import android.content.Intent;

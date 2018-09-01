@@ -56,7 +56,7 @@ public class TrackingService
       targetCalStart.set(Calendar.SECOND, targetCalStart.get(Calendar.SECOND) - periodSeconds);
       targetCalEnd.set(Calendar.MINUTE, targetCalEnd.get(Calendar.MINUTE) + periodMinutes);
       targetCalEnd.set(Calendar.SECOND, targetCalEnd.get(Calendar.SECOND) + periodMinutes);
-
+      Log.i("dateInRange", "Sourcecal="+sourceCal.getTime().toString()+ " " + "targetCalstart="+targetCalStart.getTime().toString() + " " + "targetCalEnd="+targetCalEnd.getTime().toString());
       // return if source date in the target range (inclusive of start/end range)
       return sourceCal.equals(targetCalStart) || sourceCal.equals(targetCalEnd)
               || (sourceCal.after(targetCalStart) && sourceCal.before(targetCalEnd));

@@ -8,11 +8,9 @@ import android.widget.TextView;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.controller.EditTracking;
+import rmit.s3539519.madassignment1.view.listeners.ListOnClickListener;
 
-public class TrackableViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-    private static final int LAYOUT_OFFSET = 1;
-    private static final String EXTRA_TRACKABLE_ID = "s3539519_TrackableViewHolder";
+public class TrackableViewHolder extends RecyclerView.ViewHolder {
     private Context context;
     private TextView name;
     private TextView description;
@@ -22,7 +20,7 @@ public class TrackableViewHolder extends RecyclerView.ViewHolder implements View
     public TrackableViewHolder(Context context, View v) {
         super(v);
         this.context = context;
-        v.setOnClickListener(this);
+        v.setOnClickListener(new ListOnClickListener(context, this));
         name =  v.findViewById(R.id.name);
         description =  v.findViewById(R.id.description);
         website = v.findViewById(R.id.website);
@@ -44,12 +42,5 @@ public class TrackableViewHolder extends RecyclerView.ViewHolder implements View
     }
     public TextView getId() {
         return this.id;
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent addTracking = new Intent(context, EditTracking.class);
-        addTracking.putExtra(EXTRA_TRACKABLE_ID, getId().getText());
-        context.startActivity(addTracking);
     }
 }

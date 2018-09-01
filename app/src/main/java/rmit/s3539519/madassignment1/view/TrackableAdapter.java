@@ -16,7 +16,6 @@ import rmit.s3539519.madassignment1.model.AbstractTrackable;
 
 
 public class TrackableAdapter extends RecyclerView.Adapter<TrackableViewHolder> implements Filterable {
-    private static final String LOG_TAG = TrackableAdapter.class.getName();
     private Context context;
     HashMap<Integer, AbstractTrackable> content;
     private HashMap<Integer, AbstractTrackable> filteredContent;
