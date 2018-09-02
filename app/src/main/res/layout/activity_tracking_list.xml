@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.TrackerActivity">
+    tools:context=".controller.TrackingListActivity">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -21,11 +21,14 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/trackingRecyclerView"
-        android:layout_width="178dp"
-        android:layout_height="72dp"
-        android:layout_marginBottom="52dp"
-        android:layout_marginStart="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="228dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

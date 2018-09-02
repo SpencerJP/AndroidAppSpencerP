@@ -15,16 +15,16 @@ import rmit.s3539519.madassignment1.model.AbstractTrackable;
 import rmit.s3539519.madassignment1.model.Observer;
 import rmit.s3539519.madassignment1.model.TrackableImporter;
 import rmit.s3539519.madassignment1.model.TestTrackingService;
-import rmit.s3539519.madassignment1.view.CategorySpinnerAdapter;
+import rmit.s3539519.madassignment1.view.GeoTrackerSpinnerAdapter;
 import rmit.s3539519.madassignment1.view.listeners.CategorySpinnerListener;
 import rmit.s3539519.madassignment1.view.listeners.NavigationItemSelectedListener;
 import rmit.s3539519.madassignment1.view.TrackableAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class TrackableListActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = MainActivity.class.getName();
+    private static final String LOG_TAG = TrackableListActivity.class.getName();
     private TrackableImporter trackableImporter;
-    private CategorySpinnerAdapter categorySpinnerAdapter;
+    private GeoTrackerSpinnerAdapter categorySpinnerAdapter;
     private Observer observer;
 
     @Override
@@ -41,19 +41,22 @@ public class MainActivity extends AppCompatActivity {
         HashMap<Integer, AbstractTrackable> trackables = new HashMap<Integer, AbstractTrackable>();
         observer = Observer.getSingletonInstance(this);
         observer.importTrackables();
+
+        // hardcoded trackings
+        observer.seedTrackings();
         trackables = new HashMap<Integer, AbstractTrackable>(observer.getTrackables());
-
+        // find spinner
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
-
+        // find list
         RecyclerView  trackableRecyclerView = findViewById(R.id.trackableRecyclerView);
 
-        categorySpinnerAdapter = new CategorySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, observer.extractCategoryList(trackables) );
+        categorySpinnerAdapter = new GeoTrackerSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, observer.extractCategoryList(trackables) );
 
         trackableRecyclerView.setHasFixedSize(true);
 
         LinearLayoutManager trackableLayoutManager = new LinearLayoutManager(this);
         trackableRecyclerView.setLayoutManager(trackableLayoutManager);
-
+        // not sure if this is required but a lot of sample code online seemed to have it, plus I am animating the onclick
         trackableRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         TrackableAdapter trackableAdapter = new TrackableAdapter(this, trackables);

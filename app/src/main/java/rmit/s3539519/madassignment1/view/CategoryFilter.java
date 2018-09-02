@@ -31,7 +31,6 @@ public class CategoryFilter extends Filter {
             int i = 0;
             for(Map.Entry<Integer, AbstractTrackable> trackable : filterList.entrySet()) {
                 // sort by category
-                Log.i("Kyra", trackable.getValue().getName() + " ---- " + trackable.getValue().getCategory().toUpperCase() + " ---- " + constraint );
                 if(trackable.getValue().getCategory().toUpperCase().equals(constraint.toString()))
                 {
                     filteredTrackables.put(i, trackable.getValue());
@@ -39,10 +38,8 @@ public class CategoryFilter extends Filter {
                 }
             }
             for(Map.Entry<Integer, AbstractTrackable> trackable : filteredTrackables.entrySet()) {
-                Log.i("Andrea", trackable.toString() );
             }
             results.count=filteredTrackables.size();
-            Log.i("Kyra", Integer.toString(filteredTrackables.size()) );
             results.values=filteredTrackables;
         }else
         {
@@ -57,9 +54,6 @@ public class CategoryFilter extends Filter {
     protected void publishResults(CharSequence constraint, FilterResults results) {
         // change the dataset to the filtered one
         Map<Integer, AbstractTrackable> test = new HashMap<Integer, AbstractTrackable>((HashMap<Integer, AbstractTrackable>) results.values);
-        for(Map.Entry<Integer, AbstractTrackable> trackable : test.entrySet()) {
-            Log.i("andrea2", trackable.toString() );
-        }
         adapter.content = (HashMap<Integer, AbstractTrackable>) results.values;
         adapter.notifyDataSetChanged();
     }

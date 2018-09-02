@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.controller.MainActivity;
-import rmit.s3539519.madassignment1.controller.TrackerActivity;
+import rmit.s3539519.madassignment1.controller.TrackableListActivity;
+import rmit.s3539519.madassignment1.controller.TrackingListActivity;
 
 public class NavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -18,7 +18,6 @@ public class NavigationItemSelectedListener implements BottomNavigationView.OnNa
     public NavigationItemSelectedListener(Context context, BottomNavigationView navigation ) {
         this.context = context;
         this.navigation = navigation;
-        Log.i("spenny", context.getClass().toString());
     }
 
     @Override
@@ -26,17 +25,17 @@ public class NavigationItemSelectedListener implements BottomNavigationView.OnNa
 
             switch (menuItem.getItemId()) {
                 case R.id.navigation_trackables:
-                    if (this.context.getClass().toString().contains("MainActivity")) {
+                    if (this.context.getClass().toString().contains("TrackableListActivity")) {
                         return false;
                     }
-                    Intent startTrackables = new Intent(context, MainActivity.class);
+                    Intent startTrackables = new Intent(context, TrackableListActivity.class);
                     context.startActivity(startTrackables);
                     return true;
                 case R.id.navigation_trackers:
-                    if (this.context.getClass().toString().contains("TrackerActivity")) {
+                    if (this.context.getClass().toString().contains("TrackingListActivity")) {
                         return false;
                     }
-                    Intent startTracking = new Intent(context, TrackerActivity.class);
+                    Intent startTracking = new Intent(context, TrackingListActivity.class);
                     context.startActivity(startTracking);
 
                     navigation.setSelectedItemId(R.id.navigation_trackables);

@@ -5,15 +5,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Filter;
 
-import rmit.s3539519.madassignment1.view.CategorySpinnerAdapter;
+import rmit.s3539519.madassignment1.view.GeoTrackerSpinnerAdapter;
 import rmit.s3539519.madassignment1.view.TrackableAdapter;
 
 public class CategorySpinnerListener implements AdapterView.OnItemSelectedListener {
 
-    CategorySpinnerAdapter categorySpinnerAdapter;
+    GeoTrackerSpinnerAdapter categorySpinnerAdapter;
     TrackableAdapter trackableAdapter;
     Context context;
-    public CategorySpinnerListener(Context context, CategorySpinnerAdapter categorySpinnerAdapter, TrackableAdapter trackableAdapter) {
+    public CategorySpinnerListener(Context context, GeoTrackerSpinnerAdapter categorySpinnerAdapter, TrackableAdapter trackableAdapter) {
         this.context = context;
         this.categorySpinnerAdapter = categorySpinnerAdapter;
         this.trackableAdapter = trackableAdapter;

@@ -6,31 +6,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.model.AbstractTrackable;
 import rmit.s3539519.madassignment1.model.Observer;
 import rmit.s3539519.madassignment1.model.Tracking;
-import rmit.s3539519.madassignment1.view.TrackableAdapter;
 import rmit.s3539519.madassignment1.view.TrackingAdapter;
-import rmit.s3539519.madassignment1.view.listeners.CategorySpinnerListener;
 import rmit.s3539519.madassignment1.view.listeners.NavigationItemSelectedListener;
 
-public class TrackerActivity extends AppCompatActivity {
+public class TrackingListActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private Observer observer;
     private Map<Integer, Tracking> trackings;
+    TrackingAdapter trackingAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tracker_list);
+        setContentView(R.layout.activity_tracking_list);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_trackers);
@@ -46,9 +45,15 @@ public class TrackerActivity extends AppCompatActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         trackingRecyclerView.setLayoutManager(mLayoutManager);
         trackingRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        TrackingAdapter trackingAdapter = new TrackingAdapter(this, trackings);
+        if (observer.getTrackingAdapter() != null) {
+            trackingAdapter = observer.getTrackingAdapter();
+        }
+        else {
+            trackingAdapter = new TrackingAdapter(this, trackings);
+            observer.setTrackingAdapter(trackingAdapter);
+        }
         trackingRecyclerView.setAdapter(trackingAdapter);
+
     }
 
 }

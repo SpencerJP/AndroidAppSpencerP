@@ -2,6 +2,18 @@
     <string name="app_name">MADAssignment1</string>
     <string name="title_trackable_list">Trackable List</string>
     <string name="title_activity_tracking">Tracking List</string>
+    <string name="title_activity_schedule">Schedule</string>
     <string name="title_edit_tracking">Add/Edit Tracking</string>
+    <string name="title_edit_tracking_title">Title</string>
+    <string name="title_edit_tracking_meeting_time">Meeting Time</string>
+    <string name="title_edit_tracking_start_time">Start Time</string>
+    <string name="title_edit_tracking_end_time">End Time</string>
+    <string name="title_edit_tracking_save_button">Save</string>
+    <string name="title_edit_tracking_cancel_button">Cancel</string>
+    <string name="trackable_list_instructions">Click on an item to add a tracking.</string>
+    <string name="tracking_deleted">Tracking deleted.</string>
+    <string name="are_you_sure_delete">Are you sure you want to delete?</string>
+    <string name="delete_tracking">Delete Tracking</string>
+    <string name="no_schedule">No schedule for this trackable.</string>
 
 </resources>

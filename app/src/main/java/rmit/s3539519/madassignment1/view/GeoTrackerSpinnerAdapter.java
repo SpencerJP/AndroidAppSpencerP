@@ -11,23 +11,23 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CategorySpinnerAdapter extends ArrayAdapter<String> {
+public class GeoTrackerSpinnerAdapter extends ArrayAdapter<String> {
 
     private Context context;
-    private List<String> categoryList;
+    private List<String> strings;
 
-    public CategorySpinnerAdapter(Context context, int textViewResourceId, List<String> values) {
+    public GeoTrackerSpinnerAdapter(Context context, int textViewResourceId, List<String> values) {
         super(context, textViewResourceId, values);
         this.context = context;
-        this.categoryList = values;
+        this.strings = values;
     }
 
     public int getCount(){
-        return categoryList.size();
+        return strings.size();
     }
 
     public String getItem(int position){
-        return categoryList.get(position);
+        return strings.get(position);
     }
 
     public long getItemId(int position){
@@ -39,7 +39,7 @@ public class CategorySpinnerAdapter extends ArrayAdapter<String> {
         TextView view = new TextView(context);
         view.setTextColor(Color.BLACK);
         view.setGravity(Gravity.CENTER);
-        view.setText(categoryList.get(position));
+        view.setText(strings.get(position));
 
         return view;
     }
@@ -51,7 +51,7 @@ public class CategorySpinnerAdapter extends ArrayAdapter<String> {
                                 ViewGroup parent) {
         TextView view = new TextView(context);
         view.setTextColor(Color.BLACK);
-        view.setText(categoryList.get(position));
+        view.setText(strings.get(position));
         view.setHeight(60);
 
         return view;

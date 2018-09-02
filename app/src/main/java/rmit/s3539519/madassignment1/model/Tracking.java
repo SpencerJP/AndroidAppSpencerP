@@ -1,12 +1,15 @@
 package rmit.s3539519.madassignment1.model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class Tracking {
+public class Tracking implements Comparable<Tracking> {
     private String trackingId;
     private int trackableId;
     private String title;
@@ -34,20 +37,17 @@ public class Tracking {
         boolean endTimeCorrect = false;
 
         Iterator<TrackingInfo> iter = trackingInfos.iterator();
-        Log.i("testTimes", "before " +Integer.toString(trackingInfos.size()));
         while(iter.hasNext()) {
             TrackingInfo current = iter.next();
             if(current.trackableId != getTrackableId()) {
                 iter.remove();
             }
         }
-        Log.i("testTimes", "after " + Integer.toString(trackingInfos.size()));
 
         // find the meeting time, check that it is stopped.
         iter = trackingInfos.iterator();
         while(iter.hasNext()) {
             TrackingInfo current = iter.next();
-            Log.i("testTimes", Long.toString(current.date.getTime()) + " =? " + Long.toString(getMeetTime().getTime()));
             if (current.date.getTime() == getMeetTime().getTime()) {
                 if(current.stopTime > 0) {
                     this.latitude = current.latitude;
@@ -95,19 +95,44 @@ public class Tracking {
         return startTime;
     }
 
+    public String getStartTimeTwelveHourFormat() {
+        return new SimpleDateFormat("hh:mma").format(startTime);
+    }
+
     public Date getEndTime() {
         return endTime;
+    }
+
+    public String getEndTimeTwelveHourFormat() {
+        return new SimpleDateFormat("hh:mma").format(endTime);
     }
 
     public Date getMeetTime() {
         return meetTime;
     }
 
+    public String getMeetTimeTwelveHourFormat() {
+        return new SimpleDateFormat("hh:mma").format(meetTime);
+    }
     public double getLongitude() {
         return longitude;
     }
 
     public double getLatitude() {
         return latitude;
+    }
+
+    @Override
+    public int compareTo(@NonNull Tracking o) {
+        if (this.getMeetTime().getTime() > o.getMeetTime().getTime()) {
+            return 1;
+        }
+        if (this.getMeetTime().getTime() == o.getMeetTime().getTime()) {
+            return 0;
+        }
+        if (this.getMeetTime().getTime() < o.getMeetTime().getTime()) {
+            return -1;
+        }
+        return 0;
     }
 }

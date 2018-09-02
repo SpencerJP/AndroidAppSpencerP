@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import rmit.s3539519.madassignment1.R;
-
+// class to read the file into memory
 public class TrackableImporter {
 
     public String readFile(Context context, int resId) {

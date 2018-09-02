@@ -7,20 +7,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.controller.EditTracking;
 import rmit.s3539519.madassignment1.view.listeners.ListOnClickListener;
 
-public class TrackableViewHolder extends RecyclerView.ViewHolder {
-    private Context context;
+public class TrackableViewHolder extends TrackRecyclerViewHolder {
     private TextView name;
     private TextView description;
     private TextView website;
     private TextView category;
-    private TextView id;
+
     public TrackableViewHolder(Context context, View v) {
-        super(v);
-        this.context = context;
-        v.setOnClickListener(new ListOnClickListener(context, this));
+        super(v, context);
         name =  v.findViewById(R.id.name);
         description =  v.findViewById(R.id.description);
         website = v.findViewById(R.id.website);
@@ -39,8 +35,5 @@ public class TrackableViewHolder extends RecyclerView.ViewHolder {
     }
     public TextView getCategory() {
         return this.category;
-    }
-    public TextView getId() {
-        return this.id;
     }
 }

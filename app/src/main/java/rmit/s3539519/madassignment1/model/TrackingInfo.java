@@ -6,6 +6,7 @@ import java.util.Locale;
 
 public class TrackingInfo
 {
+    // these are left public on purpose to preserve the code in TrackingService, I didn't want to edit it
     public Date date;
     public int trackableId;
     public int stopTime;

@@ -40,23 +40,21 @@ public class TrackingService
 
 
    // check if the source date is with the range of target date +/- minutes and seconds
-   private boolean dateInRange(Date source, Date target, int periodMinutes, int periodSeconds)
-   {
+   private boolean dateInRange(Date source, Date target, int periodMinutes, int periodSeconds) {
       Calendar sourceCal = Calendar.getInstance();
       Calendar targetCalStart = Calendar.getInstance();
       Calendar targetCalEnd = Calendar.getInstance();
+
       // set the calendars for comparison
       sourceCal.setTime(source);
       targetCalStart.setTime(target);
       targetCalEnd.setTime(target);
-
       // set up start and end range match for mins/secs
       // +/- period minutes/seconds to check
       targetCalStart.set(Calendar.MINUTE, targetCalStart.get(Calendar.MINUTE) - periodMinutes);
       targetCalStart.set(Calendar.SECOND, targetCalStart.get(Calendar.SECOND) - periodSeconds);
       targetCalEnd.set(Calendar.MINUTE, targetCalEnd.get(Calendar.MINUTE) + periodMinutes);
       targetCalEnd.set(Calendar.SECOND, targetCalEnd.get(Calendar.SECOND) + periodMinutes);
-      Log.i("dateInRange", "Sourcecal="+sourceCal.getTime().toString()+ " " + "targetCalstart="+targetCalStart.getTime().toString() + " " + "targetCalEnd="+targetCalEnd.getTime().toString());
       // return if source date in the target range (inclusive of start/end range)
       return sourceCal.equals(targetCalStart) || sourceCal.equals(targetCalEnd)
               || (sourceCal.after(targetCalStart) && sourceCal.before(targetCalEnd));
@@ -149,6 +147,11 @@ public class TrackingService
       for (TrackingInfo trackingInfo : trackingList)
          if (dateInRange(trackingInfo.date, date, periodMinutes, periodSeconds))
             returnList.add(trackingInfo);
+
       return returnList;
+   }
+
+   public List<TrackingInfo> getTrackingInfo() {
+      return trackingList;
    }
 }

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.MainActivity">
+        <activity android:name=".controller.TrackableListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,9 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.TrackerActivity"
+            android:name=".controller.TrackingListActivity"
             android:label="@string/title_activity_tracking" />
-        <activity android:name=".controller.EditTracking" android:label="@string/title_edit_tracking"></activity>
+        <activity
+            android:name=".controller.EditTrackingActivity"
+            android:label="@string/title_edit_tracking" />
+        <activity android:name=".controller.TrackableScheduleActivity" android:label="@string/title_activity_schedule"></activity>
     </application>
 
 </manifest>
