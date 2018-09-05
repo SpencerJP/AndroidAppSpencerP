@@ -1,5 +1,5 @@
 1|Curry Truck|Malaysian, Thai, Mongolian, Indonesian|http://www.thecurrytruck.com.au/|Asian|
-2|Happy Camper|Malaysian, Thai, Mongolian, Indonesian|/Volumes/GoogleDrive/My Drive/RMIT/MAD/2018/Assignment/TrackingService|Italian|
+2|Happy Camper|Pasta and Pizza|/Volumes/GoogleDrive/My Drive/RMIT/MAD/2018/Assignment/TrackingService|Italian|
 3|Ghost Kitchen|Traditional Taiwanese Food|http://ghostkitchen.com.au/|Asian|
 4|Afro Feast|African Street Food|https://www.facebook.com/afrofeast|African|
 5|Senior BBQ|Charcoal Grill|http://www.argentineanbbq.com/|Argentinian|
