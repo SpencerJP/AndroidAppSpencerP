@@ -13,6 +13,7 @@ import java.util.HashMap;
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
 import rmit.s3539519.madassignment1.model.Observer;
+import rmit.s3539519.madassignment1.model.SQLiteConnection;
 import rmit.s3539519.madassignment1.model.TrackableImporter;
 import rmit.s3539519.madassignment1.model.TestTrackingService;
 import rmit.s3539519.madassignment1.view.GeoTrackerSpinnerAdapter;
@@ -35,6 +36,7 @@ public class TrackableListActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new NavigationItemSelectedListener(this, navigation));
+        SQLiteConnection.connect();
 
 
         // load trackable list from txt file
