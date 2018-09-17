@@ -13,8 +13,11 @@ import java.util.regex.Pattern;
 
 import rmit.s3539519.madassignment1.R;
 // class to read the file into memory
-public class TrackableImporter {
+public class Importer implements Runnable {
 
+    Map<Integer, AbstractTrackable> destinationMapForTrackables;
+    Map<Integer, Tracking> destinationMapForTrackings;
+    String txtFile = "";
     public String readFile(Context context, int resId) {
         String s = "";
         try {
@@ -45,5 +48,33 @@ public class TrackableImporter {
                 destinationMap.put((Integer) i, ft);
                 i++;
         }
+    }
+
+    public void loadDatabase(final String backupTxtFile, final Map<Integer, AbstractTrackable> destinationMapForTrackables, Map<Integer, Tracking> destinationMapForTrackings) {
+        this.destinationMapForTrackables = destinationMapForTrackables;
+        this.destinationMapForTrackings = destinationMapForTrackings;
+        this.txtFile = backupTxtFile;
+        Thread t  = new Thread(this);
+        t.start();
+    }
+
+    @Override
+    public void run() {
+        SQLiteConnection sqlObj = new SQLiteConnection();
+        sqlObj.createTablesIfTheyDontExist();
+        if (sqlObj.getTrackableCount() > 0) {
+            sqlObj.importTrackableList(destinationMapForTrackables);
+        }
+        else {
+            stringToFoodTruckMap(txtFile, destinationMapForTrackables);
+            for(Map.Entry<Integer, AbstractTrackable> entry : destinationMapForTrackables.entrySet()) {
+                sqlObj.createTrackable(entry.getValue());
+            }
+        }
+
+        if (sqlObj.getTrackingCount() > 0) {
+            sqlObj.importTrackingList(destinationMapForTrackings);
+        }
+
     }
 }

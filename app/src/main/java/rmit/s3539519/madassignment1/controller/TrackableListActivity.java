@@ -36,8 +36,6 @@ public class TrackableListActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new NavigationItemSelectedListener(this, navigation));
-        SQLiteConnection.connect();
-
 
         // load trackable list from txt file
         HashMap<Integer, AbstractTrackable> trackables = new HashMap<Integer, AbstractTrackable>();

@@ -31,6 +31,15 @@ public class Tracking implements Comparable<Tracking> {
         this.validate(trackingInfos);
     }
 
+    public Tracking(int trackableId, String title, Date startTime, Date endTime, Date meetTime) {
+        trackingId = Integer.toString(trackableId);
+        this.trackableId = trackableId;
+        this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.meetTime = meetTime;
+    }
+
     public void validate(List<TrackingInfo> trackingInfos) throws TrackingNotValidException {
         boolean meetingTimeCorrect = false;
         boolean startTimeCorrect = false;

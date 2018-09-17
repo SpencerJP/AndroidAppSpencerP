@@ -22,7 +22,7 @@ public class Observer {
     private Context context;
     private Map<Integer, AbstractTrackable> trackables = new HashMap<Integer, AbstractTrackable>();
     private Map<Integer, Tracking> trackings = new HashMap<Integer, Tracking>();
-    private TrackableImporter trackableImporter = new TrackableImporter();
+    private Importer trackableImporter = new Importer();
     private TrackingAdapter trackingAdapter;
 
     // empty constructor
@@ -49,6 +49,7 @@ public class Observer {
     }
 
     public void importTrackables() {
+
         trackableImporter.stringToFoodTruckMap(trackableImporter.readFile(context, R.raw.food_truck_data), trackables);
     }
 
