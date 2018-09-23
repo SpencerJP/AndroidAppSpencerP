@@ -23,6 +23,7 @@
             android:name=".controller.EditTrackingActivity"
             android:label="@string/title_edit_tracking" />
         <activity android:name=".controller.TrackableScheduleActivity" android:label="@string/title_activity_schedule"></activity>
-    </application>
 
+    </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

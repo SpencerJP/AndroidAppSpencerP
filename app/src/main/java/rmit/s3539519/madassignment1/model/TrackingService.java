@@ -14,11 +14,11 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 import rmit.s3539519.madassignment1.R;
@@ -96,7 +96,9 @@ public class TrackingService
       }
    }
 
-   // singleton support
+
+
+    // singleton support
    private static class LazyHolder
    {
       static final TrackingService INSTANCE = new TrackingService();
@@ -153,5 +155,46 @@ public class TrackingService
 
    public List<TrackingInfo> getTrackingInfo() {
       return trackingList;
+   }
+
+   public String getValidMeetingTimesAsString(int trackableId) {
+      String s = "Stopping times for this Trackable: ";
+      String startTimeString = "";
+      String endTimeString = "";
+      SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
+      List<TrackingInfo> trackingInfoList  = getTrackingInfo();
+      boolean firstResponse = true;
+      for(TrackingInfo t : trackingInfoList)  {
+         if (t.trackableId == trackableId) {
+            if (t.stopTime != 0) {
+               if (firstResponse) {
+                  firstResponse = false;
+               }
+               else  {
+                  s = s + ", ";
+               }
+               startTimeString = sdf.format(t.date);
+               endTimeString = sdf.format(new Date(t.date.getTime() + (60000 * t.stopTime)));
+               s = s + String.format("%s-%s", startTimeString, endTimeString);
+            }
+         }
+      }
+      return s;
+   }
+
+   public TrackingInfo meetingTimeWithinStoppingTime(int trackableId, Date meetingTime) {
+      List<TrackingInfo> trackingInfoList  = getTrackingInfo();
+      boolean firstResponse = true;
+      for(TrackingInfo t : trackingInfoList) {
+         if (t.trackableId == trackableId) {
+            if (t.stopTime != 0) {
+               if((t.date.getTime() <= meetingTime.getTime()) && ((t.date.getTime() + (60000 * t.stopTime)) > meetingTime.getTime())) {
+                  return t;
+               }
+            }
+         }
+      }
+      // this counts as a failure to find a time that fits
+      return null;
    }
 }

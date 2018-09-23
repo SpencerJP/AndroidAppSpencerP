@@ -51,4 +51,10 @@ public abstract class AbstractTrackable implements Trackable {
     public String getPhoto() {
         return photo;
     }
+
+    public Object getCurrentLatitude() {
+    }
+
+    public Object getCurrentLongitude() {
+    }
 }

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,5 +67,10 @@ public class TrackableAdapter extends RecyclerView.Adapter<TrackableViewHolder> 
                 holder.getCategory().setText(category);
                 holder.getId().setText(id);
             }
+    }
+
+    public void updateTrackables(Map<Integer, AbstractTrackable> trackables) {
+            this.content = new HashMap<Integer, AbstractTrackable>(trackables);
+            notifyDataSetChanged();
     }
 }

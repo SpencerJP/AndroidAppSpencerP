@@ -58,6 +58,9 @@ public class TrackingAdapter extends RecyclerListAdapter {
             holder.getTitle().setText(String.format("Title: %s, (%s)", title, Observer.getSingletonInstance(context).getTrackableById(Integer.parseInt(id)).getName()   ));
             holder.getMeetTime().setText("Meet time: " + meetTime);
             holder.getBetweenTimes().setText(String.format("Between: %s - %s", startTime, endTime));
+            if(content.get(listPosition).hasLocation()) {
+                holder.getCurrentLocation().setText(String.format("Location: %.6f, %.6f", Observer.getSingletonInstance(context).getTrackableById(Integer.parseInt(id)).getCurrentLatitude(), Observer.getSingletonInstance(context).getTrackableById(Integer.parseInt(id)).getCurrentLongitude()));
+            }
         }
     }
 

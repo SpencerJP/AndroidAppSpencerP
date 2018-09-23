@@ -6,15 +6,17 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Spinner;
 
+import java.io.File;
 import java.util.HashMap;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.Importer;
 import rmit.s3539519.madassignment1.model.Observer;
 import rmit.s3539519.madassignment1.model.SQLiteConnection;
-import rmit.s3539519.madassignment1.model.TrackableImporter;
 import rmit.s3539519.madassignment1.model.TestTrackingService;
 import rmit.s3539519.madassignment1.view.GeoTrackerSpinnerAdapter;
 import rmit.s3539519.madassignment1.view.listeners.CategorySpinnerListener;
@@ -24,7 +26,7 @@ import rmit.s3539519.madassignment1.view.TrackableAdapter;
 public class TrackableListActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = TrackableListActivity.class.getName();
-    private TrackableImporter trackableImporter;
+    private Importer importer;
     private GeoTrackerSpinnerAdapter categorySpinnerAdapter;
     private Observer observer;
 
@@ -40,10 +42,12 @@ public class TrackableListActivity extends AppCompatActivity {
         // load trackable list from txt file
         HashMap<Integer, AbstractTrackable> trackables = new HashMap<Integer, AbstractTrackable>();
         observer = Observer.getSingletonInstance(this);
+
+        observer.createSQLTables();
         observer.importTrackables();
 
         // hardcoded trackings
-        observer.seedTrackings();
+        //observer.seedTrackings();
         trackables = new HashMap<Integer, AbstractTrackable>(observer.getTrackables());
         // find spinner
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
@@ -67,6 +71,7 @@ public class TrackableListActivity extends AppCompatActivity {
         categorySpinner.setOnItemSelectedListener(categorySpinnerListener);
 
         trackableRecyclerView.setAdapter(trackableAdapter);
+        observer.setTrackableAdapter(trackableAdapter);
 
     }
 

@@ -1,5 +1,6 @@
 package rmit.s3539519.madassignment1.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 import rmit.s3539519.madassignment1.R;
+import rmit.s3539519.madassignment1.view.TrackableAdapter;
 import rmit.s3539519.madassignment1.view.TrackingAdapter;
 
 public class Observer {
@@ -22,11 +24,17 @@ public class Observer {
     private Context context;
     private Map<Integer, AbstractTrackable> trackables = new HashMap<Integer, AbstractTrackable>();
     private Map<Integer, Tracking> trackings = new HashMap<Integer, Tracking>();
-    private Importer trackableImporter = new Importer();
+    private Importer importer;
     private TrackingAdapter trackingAdapter;
+    private TrackableAdapter trackableAdapter;
 
     // empty constructor
     private Observer() {
+    }
+
+    public void createSQLTables() {
+        SQLiteConnection conn = new SQLiteConnection(context);
+        conn.createTablesIfTheyDontExist();
     }
 
     // cloned singleton methods from Casper's TrackingService.java
@@ -44,13 +52,20 @@ public class Observer {
     public void setTrackingAdapter(TrackingAdapter trackingAdapter) {
         this.trackingAdapter = trackingAdapter;
     }
+
+    public void setTrackableAdapter(TrackableAdapter trackableAdapter) {
+        this.trackableAdapter = trackableAdapter;
+    }
     public TrackingAdapter getTrackingAdapter() {
         return trackingAdapter;
     }
+    public TrackableAdapter getTrackableAdapter() {
+        return trackableAdapter;
+    }
 
     public void importTrackables() {
-
-        trackableImporter.stringToFoodTruckMap(trackableImporter.readFile(context, R.raw.food_truck_data), trackables);
+        importer = new Importer((Activity) context);
+        importer.loadDatabase(importer.readFile(context, R.raw.food_truck_data), trackables, trackings);
     }
 
 
@@ -106,6 +121,15 @@ public class Observer {
         }
     }
 
+    public void updateViews() {
+        if (trackingAdapter != null) {
+            trackingAdapter.updateTrackings(trackings);
+        }
+        if (getTrackableAdapter() != null) {
+            getTrackableAdapter().updateTrackables(trackables);
+        }
+    }
+
     public AbstractTrackable getTrackableById(int id) {
         return trackables.get(id);
     }
@@ -141,9 +165,7 @@ public class Observer {
             long halfwayBetweenTimes = (startTimeDate.getTime() + endTimeDate.getTime()) / 2;
             int minutes = (int) ((endTimeDate.getTime() - startTimeDate.getTime() ) / MILLISECONDS_IN_A_MINUTE);
 
-            List<TrackingInfo> trackingInfos = TrackingService.getSingletonInstance(context).getTrackingInfoForTimeRange(new Date(halfwayBetweenTimes), minutes , 0);
-
-            Tracking tracking1 = new Tracking(1, "Flagstaff Gardens", startTimeDate, endTimeDate, meetTimeDate, trackingInfos);
+            Tracking tracking1 = new Tracking(1, "Flagstaff Gardens", startTimeDate, endTimeDate, meetTimeDate);
             trackings.put(Integer.parseInt(tracking1.getTrackingId()), tracking1);
             if (trackingAdapter != null) {
                 trackingAdapter.updateTrackings(trackings);
@@ -171,9 +193,7 @@ public class Observer {
             long halfwayBetweenTimes = (startTimeDate.getTime() + endTimeDate.getTime()) / 2;
             int minutes = (int) ((endTimeDate.getTime() - startTimeDate.getTime() ) / MILLISECONDS_IN_A_MINUTE);
 
-            List<TrackingInfo> trackingInfos = TrackingService.getSingletonInstance(context).getTrackingInfoForTimeRange(new Date(halfwayBetweenTimes), minutes , 0);
-
-            Tracking tracking2 = new Tracking(3, "Festival Hall", startTimeDate, endTimeDate, meetTimeDate, trackingInfos);
+            Tracking tracking2 = new Tracking(3, "Festival Hall", startTimeDate, endTimeDate, meetTimeDate);
             trackings.put(Integer.parseInt(tracking2.getTrackingId()), tracking2);
             if (trackingAdapter != null) {
                 trackingAdapter.updateTrackings(trackings);

@@ -3,6 +3,7 @@ package rmit.s3539519.madassignment1.view;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -11,10 +12,11 @@ import rmit.s3539519.madassignment1.view.listeners.EditTrackingButtonListener;
 
 public class EditTrackable
 {
+
+
+    private TextView validTimeList;
     private TextView title;
-    private Spinner startTime;
-    private Spinner endTime;
-    private Spinner meetingTime;
+    private EditText meetingTime;
     private Button cancel;
     private Button save;
     private Context context;
@@ -24,9 +26,8 @@ public class EditTrackable
 
         this.context = context;
         title = context.findViewById(R.id.edit_tracking_title);
-        startTime = context.findViewById(R.id.startTimeSpinner);
-        endTime = context.findViewById(R.id.endTimeSpinner);
-        meetingTime = context.findViewById(R.id.meetingTimeSpinner);
+        meetingTime = context.findViewById(R.id.meetingTimeField);
+        validTimeList = context.findViewById(R.id.validTimeList);
         cancel = context.findViewById(R.id.edit_tracking_cancel_button);
         save = context.findViewById(R.id.edit_tracking_save_button);
 
@@ -39,15 +40,15 @@ public class EditTrackable
         return title;
     }
 
-    public Spinner getStartTime() {
-        return startTime;
-    }
-
-    public Spinner getEndTime() {
-        return endTime;
-    }
-
-    public Spinner getMeetingTime() {
+    public EditText getMeetingTime() {
         return meetingTime;
+    }
+
+    public TextView getValidTimeList() {
+        return validTimeList;
+    }
+
+    public void setValidTimeList(TextView validTimeList) {
+        this.validTimeList = validTimeList;
     }
 }

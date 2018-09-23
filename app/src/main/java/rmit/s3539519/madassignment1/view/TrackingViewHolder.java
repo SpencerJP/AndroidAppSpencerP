@@ -14,11 +14,13 @@ public class TrackingViewHolder extends TrackRecyclerViewHolder {
     private TextView title;
     private TextView meetTime;
     private TextView betweenTimes;
+    private TextView currentLocation;
     public TrackingViewHolder(Context context, View v) {
         super(v, context);
         title =  v.findViewById(R.id.title);
         meetTime =  v.findViewById(R.id.meetingTime);
         betweenTimes = v.findViewById(R.id.betweenTimes);
+        currentLocation = v.findViewById(R.id.currentLocation);
         id = v.findViewById(R.id.tracking_id);
     }
 
@@ -35,5 +37,9 @@ public class TrackingViewHolder extends TrackRecyclerViewHolder {
 
     public TextView getBetweenTimes() {
         return betweenTimes;
+    }
+
+    public TextView getCurrentLocation() {
+        return currentLocation;
     }
 }

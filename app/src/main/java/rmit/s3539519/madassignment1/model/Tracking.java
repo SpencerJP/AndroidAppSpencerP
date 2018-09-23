@@ -19,18 +19,6 @@ public class Tracking implements Comparable<Tracking> {
     private double longitude;
     private double latitude;
 
-    public Tracking(int trackableId, String title, Date startTime, Date endTime, Date meetTime, List<TrackingInfo> trackingInfos) throws TrackingNotValidException {
-        trackingId = Integer.toString(trackableId);
-        this.trackableId = trackableId;
-        this.title = title;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.meetTime = meetTime;
-
-        // Throws TrackingNotValidException if not valid
-        this.validate(trackingInfos);
-    }
-
     public Tracking(int trackableId, String title, Date startTime, Date endTime, Date meetTime) {
         trackingId = Integer.toString(trackableId);
         this.trackableId = trackableId;
@@ -38,54 +26,6 @@ public class Tracking implements Comparable<Tracking> {
         this.startTime = startTime;
         this.endTime = endTime;
         this.meetTime = meetTime;
-    }
-
-    public void validate(List<TrackingInfo> trackingInfos) throws TrackingNotValidException {
-        boolean meetingTimeCorrect = false;
-        boolean startTimeCorrect = false;
-        boolean endTimeCorrect = false;
-
-        Iterator<TrackingInfo> iter = trackingInfos.iterator();
-        while(iter.hasNext()) {
-            TrackingInfo current = iter.next();
-            if(current.trackableId != getTrackableId()) {
-                iter.remove();
-            }
-        }
-
-        // find the meeting time, check that it is stopped.
-        iter = trackingInfos.iterator();
-        while(iter.hasNext()) {
-            TrackingInfo current = iter.next();
-            if (current.date.getTime() == getMeetTime().getTime()) {
-                if(current.stopTime > 0) {
-                    this.latitude = current.latitude;
-                    this.longitude = current.latitude;
-                    meetingTimeCorrect = true;
-                    break;
-                }
-            }
-        }
-
-        iter = trackingInfos.iterator();
-        while(iter.hasNext()) {
-            TrackingInfo current = iter.next();
-            if (current.date.getTime() == getStartTime().getTime()) {
-                startTimeCorrect = true;
-            }
-            if (current.date.getTime() == getEndTime().getTime()) {
-                endTimeCorrect = true;
-            }
-        }
-        if (!startTimeCorrect) {
-            throw new TrackingNotValidException("Start time isn't a registered time.");
-        }
-        if (!endTimeCorrect) {
-            throw new TrackingNotValidException("End time isn't a registered time.");
-        }
-        if (!meetingTimeCorrect) {
-            throw new TrackingNotValidException("Meeting time isn't a registered time.");
-        }
     }
 
     public String getTrackingId() {

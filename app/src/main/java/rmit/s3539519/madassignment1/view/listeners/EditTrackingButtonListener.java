@@ -17,7 +17,6 @@ import rmit.s3539519.madassignment1.view.EditTrackable;
 
 public class EditTrackingButtonListener implements View.OnClickListener {
 
-    private static long millisecondsInADay = 86400000;
     private EditTrackingActivity context;
     private EditTrackable editView;
     public EditTrackingButtonListener(Context context, EditTrackable editView) {
@@ -32,12 +31,10 @@ public class EditTrackingButtonListener implements View.OnClickListener {
         if (v.getId() == R.id.edit_tracking_save_button) {
             try {
                 String title = editView.getTitle().getText().toString();
-                Date startTime = validateTime(editView.getStartTime().getSelectedItem().toString());
-                Date endTime = validateTime(editView.getEndTime().getSelectedItem().toString());
-                Date meetingTime = validateTime(editView.getMeetingTime().getSelectedItem().toString());
+                Date meetingTime = validateTime(editView.getMeetingTime().getText().toString());
 
                 try {
-                    context.addTracking(title, startTime, endTime, meetingTime);
+                    context.addTracking(title, meetingTime);
                     context.finish();
                 }
                 catch(TrackingNotValidException e) {

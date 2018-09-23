@@ -1,5 +1,6 @@
 package rmit.s3539519.madassignment1.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -7,14 +8,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import rmit.s3539519.madassignment1.R;
 // class to read the file into memory
 public class Importer implements Runnable {
 
+
+    private Activity context;
+
+    public Importer(Activity context) {
+        this.context = context;
+    }
     Map<Integer, AbstractTrackable> destinationMapForTrackables;
     Map<Integer, Tracking> destinationMapForTrackings;
     String txtFile = "";
@@ -60,7 +65,7 @@ public class Importer implements Runnable {
 
     @Override
     public void run() {
-        SQLiteConnection sqlObj = new SQLiteConnection();
+        SQLiteConnection sqlObj = new SQLiteConnection(context);
         sqlObj.createTablesIfTheyDontExist();
         if (sqlObj.getTrackableCount() > 0) {
             sqlObj.importTrackableList(destinationMapForTrackables);
@@ -71,10 +76,23 @@ public class Importer implements Runnable {
                 sqlObj.createTrackable(entry.getValue());
             }
         }
-
         if (sqlObj.getTrackingCount() > 0) {
             sqlObj.importTrackingList(destinationMapForTrackings);
         }
+        else {
+            Observer.getSingletonInstance(context).seedTrackings();
+            for(Map.Entry<Integer, Tracking> entry : Observer.getSingletonInstance(context).getTrackings().entrySet()) {
+                sqlObj.createTracking(entry.getValue());
+            }
+        }
+        context.runOnUiThread(new Runnable() {
 
+            @Override
+            public void run() {
+
+                Observer.getSingletonInstance(context).updateViews();
+
+            }
+        });
     }
 }

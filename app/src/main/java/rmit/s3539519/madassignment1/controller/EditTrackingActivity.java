@@ -3,7 +3,9 @@ package rmit.s3539519.madassignment1.controller;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Date;
 import java.util.List;
@@ -23,9 +25,7 @@ public class EditTrackingActivity extends AppCompatActivity {
     private static final long MILLISECONDS_IN_A_MINUTE = 60000;
     private String id;
     private EditTrackable editTrackableView;
-    private GeoTrackerSpinnerAdapter startTimeSpinnerAdapter;
-    private GeoTrackerSpinnerAdapter endTimeSpinnerAdapter;
-    private GeoTrackerSpinnerAdapter meetingTimeSpinnerAdapter;
+    private EditText meetingTimeField;
 
 
     @Override
@@ -38,54 +38,33 @@ public class EditTrackingActivity extends AppCompatActivity {
 
         editTrackableView = new EditTrackable(this);
 
-        // time spinners
-        Spinner startTimeSpinner = findViewById(R.id.startTimeSpinner);
-        Spinner endTimeSpinner = findViewById(R.id.endTimeSpinner);
-        Spinner meetingTimeSpinner = findViewById(R.id.meetingTimeSpinner);
-        // adapters
-        startTimeSpinnerAdapter = new GeoTrackerSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, Observer.getSingletonInstance(this).extractTimeList());
-        endTimeSpinnerAdapter = new GeoTrackerSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, Observer.getSingletonInstance(this).extractTimeList());
-        meetingTimeSpinnerAdapter = new GeoTrackerSpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, Observer.getSingletonInstance(this).extractTimeList());
-        startTimeSpinner.setAdapter(startTimeSpinnerAdapter);
-        endTimeSpinner.setAdapter(endTimeSpinnerAdapter);
-        meetingTimeSpinner.setAdapter(meetingTimeSpinnerAdapter);
+        meetingTimeField = findViewById(R.id.meetingTimeField);
         // check if we're editing
         if(intent.getBooleanExtra(EXTRA_EDIT_BOOL, false)) {
             Tracking t = Observer.getSingletonInstance(this).getTrackingById(Integer.parseInt(id));
             // set title to current title
             editTrackableView.getTitle().setText(t.getTitle());
-
-            // set spinners to their respective times too
-            int spinnerPosition = startTimeSpinnerAdapter.getPosition(t.getStartTimeTwelveHourFormat());
-            startTimeSpinner.setSelection(spinnerPosition);
-            spinnerPosition = endTimeSpinnerAdapter.getPosition(t.getEndTimeTwelveHourFormat());
-            endTimeSpinner.setSelection(spinnerPosition);
-            spinnerPosition = meetingTimeSpinnerAdapter.getPosition(t.getMeetTimeTwelveHourFormat());
-            meetingTimeSpinner.setSelection(spinnerPosition);
+            // set field to editable current meeting time
+            meetingTimeField.setText(t.getMeetTimeTwelveHourFormat(), TextView.BufferType.EDITABLE);
         }
+
+        // populate the valid time info at the bottom
+        Integer.parseInt(id);
+        editTrackableView.getValidTimeList().setText(TrackingService.getSingletonInstance(this).getValidMeetingTimesAsString(Integer.parseInt(id)));
     }
 
-    public void addTracking(String title, Date startTime, Date endTime, Date meetingTime) throws TrackingNotValidException {
-        // have to precheck a few things here before going to the model, because getTrackingInfoForTimeRange specifies strange parameters
-        // check that startTime is before endTime and not equal
-        if ((startTime.getTime() > endTime.getTime()) || (startTime.getTime() == endTime.getTime()) ) {
-            throw new TrackingNotValidException("Start time isn't before the end time.");
-        }
-        // check that title is not empty
+    public void addTracking(String title, Date meetingTime) throws TrackingNotValidException {
+
         if ((title.equals(null)) || (title.equals("")) ) {
             throw new TrackingNotValidException("Nothing in the 'Title' field.");
         }
-        // check that meeting time is between the two times
-        if ((meetingTime.getTime() < startTime.getTime()) || meetingTime.getTime() > endTime.getTime()) {
-            throw new TrackingNotValidException("Meeting time isn't between the start and end times.");
+        TrackingInfo period = TrackingService.getSingletonInstance(this).meetingTimeWithinStoppingTime(Integer.parseInt(id), meetingTime);
+        if (period == null) {
+            throw new TrackingNotValidException("The meeting time is not a valid stopping time for the trackable.");
         }
-        long halfwayBetweenTimes = (startTime.getTime() + endTime.getTime()) / 2;
-        int minutes = (int) ((endTime.getTime() - startTime.getTime() ) / MILLISECONDS_IN_A_MINUTE);
-
-        List<TrackingInfo> trackingInfos = TrackingService.getSingletonInstance(this).getTrackingInfoForTimeRange(new Date(halfwayBetweenTimes), minutes , 0);
-
-        // this constructor can throw a TrackingNotValidException as well
-        Tracking tracking = new Tracking(Integer.parseInt(id), title, startTime, endTime, meetingTime, trackingInfos);
+        Date startTime = period.date;
+        Date endTime = new Date(period.date.getTime() + (60000 * period.stopTime));
+        Tracking tracking = new Tracking(Integer.parseInt(id), title, startTime, endTime, meetingTime);
         Observer.getSingletonInstance(this).addTracking(tracking);
     }
 }
