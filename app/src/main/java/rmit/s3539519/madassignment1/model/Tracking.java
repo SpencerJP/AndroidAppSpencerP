@@ -1,5 +1,7 @@
 package rmit.s3539519.madassignment1.model;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -83,5 +85,23 @@ public class Tracking implements Comparable<Tracking> {
             return -1;
         }
         return 0;
+    }
+
+    public boolean save(final Activity context) {
+        TrackingDatabaseThread tdt = new TrackingDatabaseThread("save", this, context);
+        Thread t = new Thread(tdt);
+        t.start();
+        return tdt.success;
+    }
+
+    public boolean destroy(final Activity context) {
+        TrackingDatabaseThread tdt = new TrackingDatabaseThread("destroy", this, context);
+        Thread t = new Thread(tdt);
+        t.start();
+        return tdt.success;
+    }
+
+    public boolean hasLocation(Context context) {
+
     }
 }

@@ -103,6 +103,7 @@ public class Observer {
 
     public void addTracking(Tracking tracking) {
             trackings.put(Integer.parseInt(tracking.getTrackingId()), tracking);
+            tracking.save((Activity) context); // add it to the database
             if (trackingAdapter != null) {
                 trackingAdapter.updateTrackings(trackings);
             }
@@ -114,6 +115,9 @@ public class Observer {
 
     public void removeTracking(int id) {
         if (trackings.containsKey(id)) {
+            TrackingDatabaseThread tdt = new TrackingDatabaseThread("destroy", id, context);
+            Thread t = new Thread(tdt);
+            t.start();
             trackings.remove(id);
             if (trackingAdapter != null) {
                 trackingAdapter.updateTrackings(trackings);

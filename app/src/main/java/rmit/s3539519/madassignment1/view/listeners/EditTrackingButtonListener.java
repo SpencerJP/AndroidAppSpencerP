@@ -35,6 +35,7 @@ public class EditTrackingButtonListener implements View.OnClickListener {
 
                 try {
                     context.addTracking(title, meetingTime);
+
                     context.finish();
                 }
                 catch(TrackingNotValidException e) {

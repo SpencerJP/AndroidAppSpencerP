@@ -53,8 +53,10 @@ public abstract class AbstractTrackable implements Trackable {
     }
 
     public Object getCurrentLatitude() {
+        return null;
     }
 
     public Object getCurrentLongitude() {
+        return null;
     }
 }
