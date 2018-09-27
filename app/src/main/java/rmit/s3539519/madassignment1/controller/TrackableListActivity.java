@@ -34,7 +34,6 @@ public class TrackableListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trackable_list);
-        TestTrackingService.test(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new NavigationItemSelectedListener(this, navigation));
@@ -73,6 +72,18 @@ public class TrackableListActivity extends AppCompatActivity {
         trackableRecyclerView.setAdapter(trackableAdapter);
         observer.setTrackableAdapter(trackableAdapter);
 
+    }
+
+    @Override
+    public void onStart() {
+
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+
+        super.onStop();
     }
 
 

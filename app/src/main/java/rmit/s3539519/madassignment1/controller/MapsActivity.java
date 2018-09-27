@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.DateFormat;
@@ -51,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng routeMarker = new LatLng(-34, 151);
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
         Intent intent = getIntent();
         int id = intent.getIntExtra(EXTRA_SCHEDULE_INFORMATION, -1);
 
@@ -68,11 +72,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for (TrackingInfo t : trackingInfos) {
                 routeMarker = new LatLng(t.latitude, t.longitude);
                 mMap.addMarker(new MarkerOptions().position(routeMarker).title("Route Marker for "  + trackable.getName()));
+                builder.include(routeMarker);
+
 
             }
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(routeMarker));
-        // Add a marker in Sydney and move the camera
+
+
+
+        LatLngBounds bounds = builder.build();
+        int padding = 200; // offset from edges of the map in pixels
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+        mMap.animateCamera(cu);
 
     }
 }
