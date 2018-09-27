@@ -15,5 +15,6 @@
     <string name="are_you_sure_delete">Are you sure you want to delete?</string>
     <string name="delete_tracking">Delete Tracking</string>
     <string name="no_schedule">No schedule for this trackable.</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

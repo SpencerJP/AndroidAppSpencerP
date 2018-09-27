@@ -1,5 +1,7 @@
 package rmit.s3539519.madassignment1.model;
 
+import android.content.Context;
+
 public abstract class AbstractTrackable implements Trackable {
     protected String id;
     protected String name;
@@ -52,11 +54,11 @@ public abstract class AbstractTrackable implements Trackable {
         return photo;
     }
 
-    public Object getCurrentLatitude() {
-        return null;
+    public double getCurrentLatitude(Context context) {
+        return TrackingService.getSingletonInstance(context).getCurrentLatitudeOfTrackable(Integer.parseInt(this.id));
     }
 
-    public Object getCurrentLongitude() {
-        return null;
+    public double getCurrentLongitude(Context context) {
+        return TrackingService.getSingletonInstance(context).getCurrentLongitudeOfTrackable(Integer.parseInt(this.id));
     }
 }

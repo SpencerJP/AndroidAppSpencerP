@@ -17,6 +17,7 @@ import java.util.Locale;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.controller.EditTrackingActivity;
+import rmit.s3539519.madassignment1.controller.MapsActivity;
 import rmit.s3539519.madassignment1.controller.TrackableListActivity;
 import rmit.s3539519.madassignment1.controller.TrackableScheduleActivity;
 import rmit.s3539519.madassignment1.controller.TrackingListActivity;
@@ -29,8 +30,6 @@ public class ListOnClickListener implements View.OnClickListener, View.OnLongCli
     private static final String EXTRA_TRACKABLE_ID = "s3539519_PassTrackingID";
     private static final String EXTRA_EDIT_BOOL = "s3539519_EditMode";
     private static final String EXTRA_SCHEDULE_INFORMATION = "s3539519_ScheduleInformation";
-    // strangely the trackableIds appear off by 1 compared to the database, probably because the recycler starts at element 0? maybe
-    private static final int LAYOUT_OFFSET = 1;
 
     private Context context;
     private TrackRecyclerViewHolder viewHolder;
@@ -93,9 +92,9 @@ public class ListOnClickListener implements View.OnClickListener, View.OnLongCli
                                 DateFormat.SHORT, DateFormat.MEDIUM).format(t.date), t.stopTime, t.latitude, t.longitude);
                     }
 
-                    s = Observer.getSingletonInstance(context).getTrackableById(trackableId - LAYOUT_OFFSET).getName() + " Route Information\n\n" + s;
-                    Intent viewSchedule = new Intent(context, TrackableScheduleActivity.class);
-                    viewSchedule.putExtra(EXTRA_SCHEDULE_INFORMATION, s);
+                    s = Observer.getSingletonInstance(context).getTrackableById(trackableId).getName() + " Route Information\n\n" + s;
+                    Intent viewSchedule = new Intent(context, MapsActivity.class);
+                    viewSchedule.putExtra(EXTRA_SCHEDULE_INFORMATION, trackableId);
                     context.startActivity(viewSchedule);
                 }
                 else {

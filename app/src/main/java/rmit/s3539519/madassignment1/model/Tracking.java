@@ -65,12 +65,14 @@ public class Tracking implements Comparable<Tracking> {
     public String getMeetTimeTwelveHourFormat() {
         return new SimpleDateFormat("hh:mma").format(meetTime);
     }
-    public double getLongitude() {
-        return longitude;
+    public double getLongitude(Context context) {
+        AbstractTrackable t = Observer.getSingletonInstance(context).getTrackableById(this.getTrackableId());
+        return t.getCurrentLongitude(context);
     }
 
-    public double getLatitude() {
-        return latitude;
+    public double getLatitude(Context context) {
+        AbstractTrackable t = Observer.getSingletonInstance(context).getTrackableById(this.getTrackableId());
+        return t.getCurrentLatitude(context);
     }
 
     @Override
@@ -99,9 +101,5 @@ public class Tracking implements Comparable<Tracking> {
         Thread t = new Thread(tdt);
         t.start();
         return tdt.success;
-    }
-
-    public boolean hasLocation(Context context) {
-
     }
 }

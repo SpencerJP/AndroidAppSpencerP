@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -154,7 +155,54 @@ public class TrackingService
    }
 
    public List<TrackingInfo> getTrackingInfo() {
+      parseFile(context);
       return trackingList;
+   }
+
+   public double getCurrentLatitudeOfTrackable(int trackableId) {
+      List<TrackingInfo> trackingInfoList = getTrackingInfo();
+      Iterator<TrackingInfo> iter = trackingInfoList.iterator();
+      while(iter.hasNext()) {
+         if (iter.next().trackableId != trackableId) {
+            iter.remove();
+         }
+      }
+      Date currentTime = new Date();
+      for(int i = 1; i < trackingInfoList.size(); i++) {
+            if ((trackingInfoList.get(i).date.after(currentTime)) && (trackingInfoList.get(i - 1) != null)) {
+               if (trackingInfoList.get(i - 1).date.before(currentTime)) {
+                  return trackingInfoList.get(i - 1).latitude;
+               }
+            }
+      }
+      // attempt to return last known location
+      if (trackingInfoList.size() != 0) {
+         return trackingInfoList.get(trackingInfoList.size() - 1).latitude;
+      }
+      return 0;
+   }
+
+   public double getCurrentLongitudeOfTrackable(int trackableId) {
+      List<TrackingInfo> trackingInfoList = getTrackingInfo();
+      Iterator<TrackingInfo> iter = trackingInfoList.iterator();
+      while(iter.hasNext()) {
+         if (iter.next().trackableId != trackableId) {
+            iter.remove();
+         }
+      }
+      Date currentTime = new Date();
+      for(int i = 1; i < trackingInfoList.size(); i++) {
+         if ((trackingInfoList.get(i).date.after(currentTime)) && (trackingInfoList.get(i - 1) != null)) {
+            if (trackingInfoList.get(i - 1).date.before(currentTime)) {
+               return trackingInfoList.get(i - 1).longitude;
+            }
+         }
+      }
+      // attempt to return last known location
+      if (trackingInfoList.size() != 0) {
+         return trackingInfoList.get(trackingInfoList.size() - 1).longitude;
+      }
+      return 0;
    }
 
    public String getValidMeetingTimesAsString(int trackableId) {
