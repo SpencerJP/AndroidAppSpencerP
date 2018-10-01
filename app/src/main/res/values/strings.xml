@@ -16,5 +16,6 @@
     <string name="delete_tracking">Delete Tracking</string>
     <string name="no_schedule">No schedule for this trackable.</string>
     <string name="title_activity_maps">Map</string>
+    <string name="google_api_key">a</string>
 
 </resources>

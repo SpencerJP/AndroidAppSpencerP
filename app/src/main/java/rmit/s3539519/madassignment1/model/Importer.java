@@ -85,6 +85,7 @@ public class Importer implements Runnable {
                 sqlObj.createTracking(entry.getValue());
             }
         }
+        /*
         context.runOnUiThread(new Runnable() {
 
             @Override
@@ -93,6 +94,6 @@ public class Importer implements Runnable {
                 Observer.getSingletonInstance(context).updateViews();
 
             }
-        });
+        }); */
     }
 }

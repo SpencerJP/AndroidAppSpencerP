@@ -63,7 +63,7 @@ public class Observer {
         return trackableAdapter;
     }
 
-    public void importTrackables() {
+    public void importData() {
         importer = new Importer((Activity) context);
         importer.loadDatabase(importer.readFile(context, R.raw.food_truck_data), trackables, trackings);
     }

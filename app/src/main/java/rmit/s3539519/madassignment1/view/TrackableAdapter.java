@@ -2,6 +2,7 @@ package rmit.s3539519.madassignment1.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,17 +51,18 @@ public class TrackableAdapter extends RecyclerView.Adapter<TrackableViewHolder> 
 
     @Override
     public int getItemCount() {
-        return content.size();
-    }
+        return content.size() + 1;
+    } // +1 because for some reason it is omitting final  element, this fixes it!
 
     @Override
     public void onBindViewHolder(final TrackableViewHolder holder, final int listPosition) {
-            if (content.get(listPosition) != null) {
-                String name = content.get(listPosition).getName();
-                String description = content.get(listPosition).getDescription();
-                String website = content.get(listPosition).getUrl();
-                String category = content.get(listPosition).getCategory();
-                String id = content.get(listPosition).getId();
+            int newListPosition = listPosition + 1;
+            if (content.get(newListPosition) != null) {
+                String name = content.get(newListPosition).getName();
+                String description = content.get(newListPosition).getDescription();
+                String website = content.get(newListPosition).getUrl();
+                String category = content.get(newListPosition).getCategory();
+                String id = content.get(newListPosition).getId();
                 holder.getName().setText(name);
                 holder.getDescription().setText(description);
                 holder.getWebsite().setText(website);
