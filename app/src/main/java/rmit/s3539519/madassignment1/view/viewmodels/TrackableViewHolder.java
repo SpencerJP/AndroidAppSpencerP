@@ -1,13 +1,10 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.viewmodels;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.view.listeners.ListOnClickListener;
 
 public class TrackableViewHolder extends TrackRecyclerViewHolder {
     private TextView name;

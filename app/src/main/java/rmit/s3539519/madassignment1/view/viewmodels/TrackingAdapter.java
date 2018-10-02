@@ -1,15 +1,9 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.viewmodels;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,8 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.model.AbstractTrackable;
-import rmit.s3539519.madassignment1.model.FoodTruck;
 import rmit.s3539519.madassignment1.model.Observer;
 import rmit.s3539519.madassignment1.model.Tracking;
 
@@ -32,7 +24,7 @@ public class TrackingAdapter extends RecyclerListAdapter {
     }
     @Override
     public TrackingViewHolder onCreateViewHolder(ViewGroup parent,
-                                                  int viewType) {
+                                                 int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.tracking_text_view, parent, false);
         TrackingViewHolder vh = new TrackingViewHolder(context, v);

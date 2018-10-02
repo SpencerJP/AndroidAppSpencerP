@@ -1,14 +1,13 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.viewmodels;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.view.listeners.EditTrackingButtonListener;
+import rmit.s3539519.madassignment1.controller.EditTrackingButtonListener;
 
 public class EditTrackable
 {

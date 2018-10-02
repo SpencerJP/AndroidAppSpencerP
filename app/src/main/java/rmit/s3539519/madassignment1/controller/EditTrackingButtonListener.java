@@ -1,7 +1,6 @@
-package rmit.s3539519.madassignment1.view.listeners;
+package rmit.s3539519.madassignment1.controller;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,9 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.controller.EditTrackingActivity;
+import rmit.s3539519.madassignment1.view.EditTrackingActivity;
 import rmit.s3539519.madassignment1.model.TrackingNotValidException;
-import rmit.s3539519.madassignment1.view.EditTrackable;
+import rmit.s3539519.madassignment1.view.viewmodels.EditTrackable;
 
 public class EditTrackingButtonListener implements View.OnClickListener {
 

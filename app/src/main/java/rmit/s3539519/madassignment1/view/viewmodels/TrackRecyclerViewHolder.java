@@ -1,12 +1,11 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.viewmodels;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.view.listeners.ListOnClickListener;
+import rmit.s3539519.madassignment1.controller.ListOnClickListener;
 
 
 // superclass for the two view holders I use

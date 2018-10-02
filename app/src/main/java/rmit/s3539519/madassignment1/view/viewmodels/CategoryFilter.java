@@ -1,6 +1,5 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.viewmodels;
 
-import android.util.Log;
 import android.widget.Filter;
 
 import java.util.HashMap;

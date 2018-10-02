@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.controller;
+package rmit.s3539519.madassignment1.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

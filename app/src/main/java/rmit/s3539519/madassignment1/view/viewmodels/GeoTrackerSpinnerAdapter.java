@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.viewmodels;
 
 import android.content.Context;
 import android.graphics.Color;

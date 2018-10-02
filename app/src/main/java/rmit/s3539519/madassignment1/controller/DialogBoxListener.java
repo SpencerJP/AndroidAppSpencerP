@@ -1,10 +1,9 @@
-package rmit.s3539519.madassignment1.view.listeners;
+package rmit.s3539519.madassignment1.controller;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.Toast;
 
-import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.Observer;
 
 public class DialogBoxListener implements DialogInterface.OnClickListener {

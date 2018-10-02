@@ -1,12 +1,9 @@
-package rmit.s3539519.madassignment1.view.listeners;
+package rmit.s3539519.madassignment1.controller;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -16,15 +13,14 @@ import java.util.List;
 import java.util.Locale;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.controller.EditTrackingActivity;
-import rmit.s3539519.madassignment1.controller.MapsActivity;
-import rmit.s3539519.madassignment1.controller.TrackableListActivity;
-import rmit.s3539519.madassignment1.controller.TrackableScheduleActivity;
-import rmit.s3539519.madassignment1.controller.TrackingListActivity;
+import rmit.s3539519.madassignment1.view.EditTrackingActivity;
+import rmit.s3539519.madassignment1.view.MapsActivity;
+import rmit.s3539519.madassignment1.view.TrackableListActivity;
+import rmit.s3539519.madassignment1.view.TrackingListActivity;
 import rmit.s3539519.madassignment1.model.Observer;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
 import rmit.s3539519.madassignment1.model.TrackingService;
-import rmit.s3539519.madassignment1.view.TrackRecyclerViewHolder;
+import rmit.s3539519.madassignment1.view.viewmodels.TrackRecyclerViewHolder;
 
 public class ListOnClickListener implements View.OnClickListener, View.OnLongClickListener {
     private static final String EXTRA_TRACKABLE_ID = "s3539519_PassTrackingID";

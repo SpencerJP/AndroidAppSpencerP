@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.controller;
+package rmit.s3539519.madassignment1.view;
 
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -6,24 +6,19 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Spinner;
 
-import java.io.File;
 import java.util.HashMap;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
 import rmit.s3539519.madassignment1.model.DistanceMatrixAPIThread;
-import rmit.s3539519.madassignment1.model.DistanceMatrixService;
 import rmit.s3539519.madassignment1.model.Importer;
 import rmit.s3539519.madassignment1.model.Observer;
-import rmit.s3539519.madassignment1.model.SQLiteConnection;
-import rmit.s3539519.madassignment1.model.TestTrackingService;
-import rmit.s3539519.madassignment1.view.GeoTrackerSpinnerAdapter;
-import rmit.s3539519.madassignment1.view.listeners.CategorySpinnerListener;
-import rmit.s3539519.madassignment1.view.listeners.NavigationItemSelectedListener;
-import rmit.s3539519.madassignment1.view.TrackableAdapter;
+import rmit.s3539519.madassignment1.view.viewmodels.GeoTrackerSpinnerAdapter;
+import rmit.s3539519.madassignment1.controller.CategorySpinnerListener;
+import rmit.s3539519.madassignment1.controller.NavigationItemSelectedListener;
+import rmit.s3539519.madassignment1.view.viewmodels.TrackableAdapter;
 
 public class TrackableListActivity extends AppCompatActivity {
 

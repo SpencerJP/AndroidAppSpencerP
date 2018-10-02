@@ -1,14 +1,12 @@
-package rmit.s3539519.madassignment1.controller;
+package rmit.s3539519.madassignment1.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Date;
-import java.util.List;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.Observer;
@@ -16,8 +14,7 @@ import rmit.s3539519.madassignment1.model.Tracking;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
 import rmit.s3539519.madassignment1.model.TrackingNotValidException;
 import rmit.s3539519.madassignment1.model.TrackingService;
-import rmit.s3539519.madassignment1.view.EditTrackable;
-import rmit.s3539519.madassignment1.view.GeoTrackerSpinnerAdapter;
+import rmit.s3539519.madassignment1.view.viewmodels.EditTrackable;
 
 public class EditTrackingActivity extends AppCompatActivity {
     private static final String EXTRA_TRACKABLE_ID = "s3539519_PassTrackingID";

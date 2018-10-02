@@ -1,15 +1,14 @@
-package rmit.s3539519.madassignment1.view.listeners;
+package rmit.s3539519.madassignment1.controller;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.util.Log;
 import android.view.MenuItem;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.controller.TrackableListActivity;
-import rmit.s3539519.madassignment1.controller.TrackingListActivity;
+import rmit.s3539519.madassignment1.view.TrackableListActivity;
+import rmit.s3539519.madassignment1.view.TrackingListActivity;
 
 public class NavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 
