@@ -44,4 +44,6 @@ public class SuggestionListActivity extends AppCompatActivity {
         suggestionRecyclerView.setAdapter(suggestionAdapter);
         Observer.getSingletonInstance(this).setSuggestionAdapter(suggestionAdapter);
     }
+
+
 }

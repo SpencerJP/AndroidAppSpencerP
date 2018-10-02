@@ -1,6 +1,9 @@
 package rmit.s3539519.madassignment1.view;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import java.util.HashMap;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.services.ConnectivityDetector;
 import rmit.s3539519.madassignment1.model.utilities.DistanceMatrixAPIThread;
 import rmit.s3539519.madassignment1.model.Importer;
 import rmit.s3539519.madassignment1.model.services.Observer;
@@ -31,6 +35,7 @@ public class TrackableListActivity extends AppCompatActivity {
     private GeoTrackerSpinnerAdapter categorySpinnerAdapter;
     private Observer observer;
     private HashMap<Integer, AbstractTrackable> trackables;
+    private IntentFilter intentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +48,14 @@ public class TrackableListActivity extends AppCompatActivity {
         observer.createSQLTables();
         observer.importData();
 
+        intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        this.registerReceiver(new ConnectivityDetector(), intentFilter);
+
         // my house to mcdonalds
 
         Thread t = new Thread(new DistanceMatrixAPIThread(this, -37.578101, 144.715287, -37.576557, 144.728455));
         t.start();
+
     }
 
     @Override
