@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.model.Observer;
+import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.model.Tracking;
 
 public class TrackingAdapter extends RecyclerListAdapter {

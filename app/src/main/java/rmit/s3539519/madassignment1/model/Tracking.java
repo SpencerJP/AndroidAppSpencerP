@@ -3,13 +3,12 @@ package rmit.s3539519.madassignment1.model;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+
+import rmit.s3539519.madassignment1.model.services.Observer;
+import rmit.s3539519.madassignment1.model.utilities.TrackingDatabaseThread;
 
 public class Tracking implements Comparable<Tracking> {
     private String trackingId;

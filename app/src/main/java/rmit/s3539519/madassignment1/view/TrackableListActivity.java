@@ -1,20 +1,24 @@
 package rmit.s3539519.madassignment1.view;
 
+import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Spinner;
 
 import java.util.HashMap;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
-import rmit.s3539519.madassignment1.model.DistanceMatrixAPIThread;
+import rmit.s3539519.madassignment1.model.utilities.DistanceMatrixAPIThread;
 import rmit.s3539519.madassignment1.model.Importer;
-import rmit.s3539519.madassignment1.model.Observer;
+import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.view.viewmodels.GeoTrackerSpinnerAdapter;
 import rmit.s3539519.madassignment1.controller.CategorySpinnerListener;
 import rmit.s3539519.madassignment1.controller.NavigationItemSelectedListener;
@@ -54,10 +58,6 @@ public class TrackableListActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(new NavigationItemSelectedListener(this, navigation));
 
-
-
-        // hardcoded trackings
-        //observer.seedTrackings();
         trackables = new HashMap<Integer, AbstractTrackable>(observer.getTrackables());
         // find spinner
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
@@ -90,5 +90,28 @@ public class TrackableListActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_item_preferences:
+                Intent preferences = new Intent(this, PreferencesActivity.class);
+                this.startActivity(preferences);
+                break;
+            case R.id.menu_item_suggestions:
+                Intent suggestions = new Intent(this, SuggestionListActivity.class);
+                this.startActivity(suggestions);
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
 
 }

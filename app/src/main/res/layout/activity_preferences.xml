@@ -4,42 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.EditTrackingActivity">
+    tools:context=".view.PreferencesActivity">
 
     <EditText
-        android:id="@+id/edit_tracking_title"
+        android:id="@+id/edit_preferences_notification_period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/notification_period_label" />
 
     <TextView
-        android:id="@+id/meetingTimeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/title_edit_tracking_meeting_time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_tracking_title" />
-
-    <TextView
-        android:id="@+id/titleLabel"
+        android:id="@+id/notification_period_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:labelFor="@id/edit_tracking_title"
-        android:text="@string/title_edit_tracking_title"
+        android:labelFor="@id/edit_preferences_notification_period"
+        android:text="@string/title_notification_period"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/edit_tracking_suggestion_frequency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tracking_suggestion_frequency_label" />
+
+    <TextView
+        android:id="@+id/tracking_suggestion_frequency_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/title_tracking_suggestion_frequency"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_preferences_notification_period" />
+
     <Button
-        android:id="@+id/edit_tracking_save_button"
+        android:id="@+id/edit_preferences_save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -51,7 +62,7 @@
         app:layout_constraintVertical_bias="0.961" />
 
     <Button
-        android:id="@+id/edit_tracking_cancel_button"
+        android:id="@+id/edit_preferences_cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -60,27 +71,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/edit_tracking_save_button"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
+        app:layout_constraintVertical_bias="0.958" />
 
-    <EditText
-        android:id="@+id/meetingTimeField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meetingTimeLabel" />
 
-    <TextView
-        android:id="@+id/validTimeList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="136dp"
-        android:text=""
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meetingTimeField" />
 
 </android.support.constraint.ConstraintLayout>

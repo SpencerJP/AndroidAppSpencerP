@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.Toast;
 
-import rmit.s3539519.madassignment1.model.Observer;
+import rmit.s3539519.madassignment1.model.services.Observer;
 
 public class DialogBoxListener implements DialogInterface.OnClickListener {
 

@@ -11,20 +11,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
-import rmit.s3539519.madassignment1.model.Observer;
+import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
-import rmit.s3539519.madassignment1.model.TrackingService;
+import rmit.s3539519.madassignment1.model.services.TrackingService;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 

@@ -1,6 +1,9 @@
-package rmit.s3539519.madassignment1.model;
+package rmit.s3539519.madassignment1.model.utilities;
 
 import android.content.Context;
+
+import rmit.s3539519.madassignment1.model.Tracking;
+import rmit.s3539519.madassignment1.model.utilities.SQLiteConnection;
 
 public class TrackingDatabaseThread implements Runnable {
     private String mode;

@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.model;
+package rmit.s3539519.madassignment1.model.services;
 
 // simulated tracking service by Caspar for MAD s2, 2018
 // Usage: add this class to project in appropriate package
@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import rmit.s3539519.madassignment1.R;
+import rmit.s3539519.madassignment1.model.TrackingInfo;
 
 public class TrackingService
 {

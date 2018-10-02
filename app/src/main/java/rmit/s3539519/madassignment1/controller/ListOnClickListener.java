@@ -17,9 +17,9 @@ import rmit.s3539519.madassignment1.view.EditTrackingActivity;
 import rmit.s3539519.madassignment1.view.MapsActivity;
 import rmit.s3539519.madassignment1.view.TrackableListActivity;
 import rmit.s3539519.madassignment1.view.TrackingListActivity;
-import rmit.s3539519.madassignment1.model.Observer;
+import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
-import rmit.s3539519.madassignment1.model.TrackingService;
+import rmit.s3539519.madassignment1.model.services.TrackingService;
 import rmit.s3539519.madassignment1.view.viewmodels.TrackRecyclerViewHolder;
 
 public class ListOnClickListener implements View.OnClickListener, View.OnLongClickListener {

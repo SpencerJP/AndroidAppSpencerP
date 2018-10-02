@@ -9,7 +9,7 @@ import android.widget.TextView;
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.controller.EditTrackingButtonListener;
 
-public class EditTrackable
+public class EditTrackableModel
 {
 
 
@@ -21,7 +21,7 @@ public class EditTrackable
     private Context context;
     private EditTrackingButtonListener listener;
 
-    public EditTrackable(AppCompatActivity context) {
+    public EditTrackableModel(AppCompatActivity context) {
 
         this.context = context;
         title = context.findViewById(R.id.edit_tracking_title);

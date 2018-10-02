@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.model;
+package rmit.s3539519.madassignment1.model.utilities;
 import android.content.Context;
 import android.util.Log;
 
@@ -10,6 +10,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.Map;
+
+import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.FoodTruck;
+import rmit.s3539519.madassignment1.model.Trackable;
+import rmit.s3539519.madassignment1.model.Tracking;
 
 public class SQLiteConnection {
 

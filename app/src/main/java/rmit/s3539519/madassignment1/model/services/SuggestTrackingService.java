@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.model;
+package rmit.s3539519.madassignment1.model.services;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;

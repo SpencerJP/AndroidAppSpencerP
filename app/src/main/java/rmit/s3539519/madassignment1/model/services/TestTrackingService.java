@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.model;
+package rmit.s3539519.madassignment1.model.services;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+
+import rmit.s3539519.madassignment1.model.TrackingInfo;
 
 // Support code by Caspar for MAD assignment s2 2018
 // Simple example to test TrackingService (for demonstration only)

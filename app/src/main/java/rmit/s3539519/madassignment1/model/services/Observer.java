@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.model;
+package rmit.s3539519.madassignment1.model.services;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,17 +16,27 @@ import java.util.Map;
 import java.util.Set;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.view.TrackableAdapter;
-import rmit.s3539519.madassignment1.view.TrackingAdapter;
+import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.Importer;
+import rmit.s3539519.madassignment1.model.Suggestion;
+import rmit.s3539519.madassignment1.model.Tracking;
+import rmit.s3539519.madassignment1.model.TrackingInfo;
+import rmit.s3539519.madassignment1.model.utilities.SQLiteConnection;
+import rmit.s3539519.madassignment1.model.utilities.TrackingDatabaseThread;
+import rmit.s3539519.madassignment1.view.viewmodels.SuggestionAdapter;
+import rmit.s3539519.madassignment1.view.viewmodels.TrackableAdapter;
+import rmit.s3539519.madassignment1.view.viewmodels.TrackingAdapter;
 
 public class Observer {
     private static final long MILLISECONDS_IN_A_MINUTE = 60000;
     private Context context;
     private Map<Integer, AbstractTrackable> trackables = new HashMap<Integer, AbstractTrackable>();
     private Map<Integer, Tracking> trackings = new HashMap<Integer, Tracking>();
+    private Map<Integer, Suggestion> suggestions = new HashMap<Integer, Suggestion>();
     private Importer importer;
     private TrackingAdapter trackingAdapter;
     private TrackableAdapter trackableAdapter;
+    private SuggestionAdapter suggestionAdapter;
 
     // empty constructor
     private Observer() {
@@ -37,14 +47,17 @@ public class Observer {
         conn.createTablesIfTheyDontExist();
     }
 
+    public void setSuggestionAdapter(SuggestionAdapter suggestionAdapter) {
+        this.suggestionAdapter = suggestionAdapter;
+    }
+
     // cloned singleton methods from Casper's TrackingService.java
     private static class ObserverSingleton
     {
         static final Observer INSTANCE = new Observer();
     }
 
-    public static Observer getSingletonInstance(Context context)
-    {
+    public static Observer getSingletonInstance(Context context) {
         Observer.ObserverSingleton.INSTANCE.context = context;
         return Observer.ObserverSingleton.INSTANCE;
     }
@@ -71,6 +84,7 @@ public class Observer {
 
     public Map<Integer, AbstractTrackable> getTrackables() { return trackables;}
     public Map<Integer, Tracking> getTrackings() { return trackings;}
+    public Map<Integer, Suggestion> getSuggestions() { return suggestions; }
 
     public List<String> extractCategoryList(Map<Integer, AbstractTrackable> trackableList) {
         // using a set to ensure there are no duplicate categories
@@ -107,6 +121,13 @@ public class Observer {
             if (trackingAdapter != null) {
                 trackingAdapter.updateTrackings(trackings);
             }
+    }
+
+    public void addSuggestion(Suggestion suggestion) {
+        suggestions.put(suggestion.getId(), suggestion);
+        if (suggestionAdapter != null) {
+            suggestionAdapter.updateSuggestions(suggestions);
+        }
     }
 
     public Tracking getTrackingById(int id) {
