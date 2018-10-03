@@ -19,6 +19,15 @@ public class Suggestion {
         this.suggestionTime = new Date();
     }
 
+    public Suggestion(DistanceMatrixModel dmm) {
+        this.id = nextAvailableId; // prevent id collisions
+        nextAvailableId++;
+        this.suggestedTrackable = dmm.getTrackable();
+        this.distanceToTrackableInMetres = dmm.getDistanceInMetres();
+        this.timeToTrackableInSeconds = dmm.getTimeDifference();
+        this.suggestionTime = new Date();
+    }
+
     public int getId() { return id; }
     public AbstractTrackable getSuggestedTrackable() {
         return suggestedTrackable;

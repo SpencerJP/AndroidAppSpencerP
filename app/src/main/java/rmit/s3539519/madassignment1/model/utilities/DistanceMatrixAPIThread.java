@@ -1,8 +1,10 @@
 package rmit.s3539519.madassignment1.model.utilities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
+import rmit.s3539519.madassignment1.model.AbstractTrackable;
 import rmit.s3539519.madassignment1.model.DistanceMatrixModel;
 import rmit.s3539519.madassignment1.model.services.DistanceMatrixService;
 
@@ -13,10 +15,12 @@ public class DistanceMatrixAPIThread implements Runnable {
     private double sourceLong;
     private double destLat;
     private double destLong;
-    private Activity context;
+    private Context context;
+    private AbstractTrackable trackable;
     private boolean finished = false;
 
-    public DistanceMatrixAPIThread(Activity context, double sourceLat, double sourceLong, double destLat, double destLong) {
+    public DistanceMatrixAPIThread(Context context, AbstractTrackable trackable, double sourceLat, double sourceLong, double destLat, double destLong) {
+        this.trackable = trackable;
         this.sourceLat = sourceLat;
         this.sourceLong = sourceLong;
         this.destLat = destLat;
@@ -26,7 +30,7 @@ public class DistanceMatrixAPIThread implements Runnable {
 
     @Override
     public void run() {
-        returnValue = DistanceMatrixService.getSingletonInstance(context).makeAPIRequest(sourceLat, sourceLong, destLat, destLong);
+        returnValue = DistanceMatrixService.getSingletonInstance(context).makeAPIRequest(trackable, sourceLat, sourceLong, destLat, destLong);
         finished = true;
     }
 

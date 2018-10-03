@@ -1,6 +1,12 @@
 package rmit.s3539519.madassignment1.view;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -10,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +26,9 @@ import java.util.HashMap;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.broadcastreceivers.SuggestionAlarm;
 import rmit.s3539519.madassignment1.model.services.ConnectivityDetector;
+import rmit.s3539519.madassignment1.model.services.SuggestTrackingService;
 import rmit.s3539519.madassignment1.model.utilities.DistanceMatrixAPIThread;
 import rmit.s3539519.madassignment1.model.Importer;
 import rmit.s3539519.madassignment1.model.services.Observer;
@@ -51,10 +60,10 @@ public class TrackableListActivity extends AppCompatActivity {
         intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         this.registerReceiver(new ConnectivityDetector(), intentFilter);
 
-        // my house to mcdonalds
 
-        Thread t = new Thread(new DistanceMatrixAPIThread(this, -37.578101, 144.715287, -37.576557, 144.728455));
-        t.start();
+
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+        this.requestPermissions(perms, 5919);
 
     }
 
@@ -68,6 +77,8 @@ public class TrackableListActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(new NavigationItemSelectedListener(this, navigation));
 
         trackables = new HashMap<Integer, AbstractTrackable>(observer.getTrackables());
+        SuggestionAlarm alarm = new SuggestionAlarm();
+        alarm.setAlarm(this, trackables);
         // find spinner
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
         // find list

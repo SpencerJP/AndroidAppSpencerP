@@ -9,7 +9,9 @@ public class DistanceMatrixModel {
     private String destinationAddress;
     private long distanceInMetres;
     private long timeDifference;
-    public DistanceMatrixModel(String output) throws JSONException {
+    private AbstractTrackable trackable;
+    public DistanceMatrixModel(AbstractTrackable trackable, String output) throws JSONException {
+            this.trackable = trackable;
             JSONObject obj = new JSONObject(output);
             this.destinationAddress = obj.getJSONArray("destination_addresses").getString(0);
             this.destinationAddress = obj.getJSONArray("origin_addresses").getString(0);
@@ -32,5 +34,9 @@ public class DistanceMatrixModel {
 
     public long getTimeDifference() {
         return timeDifference;
+    }
+
+    public AbstractTrackable getTrackable() {
+        return trackable;
     }
 }

@@ -12,22 +12,7 @@ public class LocationTracker implements LocationListener {
         longitude = location.getLongitude();
         latitude = location.getLatitude();
     }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
-    }
-
+    
     public double getLatitude() {
         return latitude;
     }
@@ -35,4 +20,13 @@ public class LocationTracker implements LocationListener {
     public double getLongitude() {
         return longitude;
     }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {}
+
+    @Override
+    public void onProviderEnabled(String s) {}
+
+    @Override
+    public void onProviderDisabled(String s) {}
 }

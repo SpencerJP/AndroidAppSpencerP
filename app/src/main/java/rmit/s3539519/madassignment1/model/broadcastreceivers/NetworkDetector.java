@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.model;
+package rmit.s3539519.madassignment1.model.broadcastreceivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

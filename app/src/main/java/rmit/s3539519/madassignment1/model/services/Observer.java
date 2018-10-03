@@ -82,7 +82,9 @@ public class Observer {
     }
 
 
-    public Map<Integer, AbstractTrackable> getTrackables() { return trackables;}
+    public Map<Integer, AbstractTrackable> getTrackables() {
+        Log.i("wtf", Integer.toString(trackables.size()));
+        return trackables;}
     public Map<Integer, Tracking> getTrackings() { return trackings;}
     public Map<Integer, Suggestion> getSuggestions() { return suggestions; }
 

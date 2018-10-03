@@ -25,14 +25,6 @@ public class SuggestionListActivity extends AppCompatActivity {
         observer = Observer.getSingletonInstance(this);
         suggestions = observer.getSuggestions();
 
-
-        // TODO REMOVE
-        Suggestion s1 = new Suggestion(observer.getTrackableById(1), 300, 500);
-        Suggestion s2 = new Suggestion(observer.getTrackableById(2), 800, 600);
-        observer.addSuggestion(s1);
-        observer.addSuggestion(s2);
-
-
         suggestionRecyclerView.setHasFixedSize(true);
 
         LinearLayoutManager trackableLayoutManager = new LinearLayoutManager(this);

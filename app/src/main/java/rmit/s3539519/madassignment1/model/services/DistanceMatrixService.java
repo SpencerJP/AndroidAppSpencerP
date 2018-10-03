@@ -16,6 +16,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
+import rmit.s3539519.madassignment1.model.AbstractTrackable;
 import rmit.s3539519.madassignment1.model.DistanceMatrixModel;
 
 public class DistanceMatrixService {
@@ -37,7 +38,7 @@ public class DistanceMatrixService {
         return DistanceMatrixService.DistanceMatrixSingleton.INSTANCE;
     }
 
-    public DistanceMatrixModel makeAPIRequest(double sourceLat, double sourceLong, double destLat, double destLong) {
+    public DistanceMatrixModel makeAPIRequest(AbstractTrackable trackable, double sourceLat, double sourceLong, double destLat, double destLong) {
         try {
             URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&key=" + "AIzaSyDl4OEv3cjEhEu87910XI4eCdYDRS3afZI" + "&" + String.format("origins=%.6f,%.6f&destinations=%.6f,%.6f", sourceLat, sourceLong, destLat, destLong));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -55,7 +56,7 @@ public class DistanceMatrixService {
                 output = output + inputLine;
             }
             in.close();
-            DistanceMatrixModel obj = new DistanceMatrixModel(output);
+            DistanceMatrixModel obj = new DistanceMatrixModel(trackable, output);
             con.disconnect();
             return obj;
         } catch (ProtocolException e) {
