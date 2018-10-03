@@ -14,6 +14,7 @@ public class DistanceMatrixAPIThread implements Runnable {
     private double destLat;
     private double destLong;
     private Activity context;
+    private boolean finished = false;
 
     public DistanceMatrixAPIThread(Activity context, double sourceLat, double sourceLong, double destLat, double destLong) {
         this.sourceLat = sourceLat;
@@ -26,21 +27,14 @@ public class DistanceMatrixAPIThread implements Runnable {
     @Override
     public void run() {
         returnValue = DistanceMatrixService.getSingletonInstance(context).makeAPIRequest(sourceLat, sourceLong, destLat, destLong);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        context.runOnUiThread(new Runnable() {
+        finished = true;
+    }
 
-            @Override
-            public void run() {
-                if(returnValue != null) {
-                    Toast.makeText(context, "Distance: " + Long.toString(returnValue.getDistanceInMetres()) + ", seconds: " + Long.toString(returnValue.getTimeDifference()),
-                            Toast.LENGTH_SHORT).show();
-                }
+    public DistanceMatrixModel getReturnValue() {
+        return returnValue;
+    }
 
-            }
-        });
+    public boolean isFinished() {
+        return finished;
     }
 }
