@@ -9,8 +9,8 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.TrackableListActivity">
+        <activity android:name=".view.TrackableListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,13 +27,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.TrackingListActivity"
+            android:name=".view.TrackingListActivity"
             android:label="@string/title_activity_tracking" />
         <activity
-            android:name=".controller.EditTrackingActivity"
+            android:name=".view.EditTrackingActivity"
             android:label="@string/title_edit_tracking" />
         <activity
-            android:name=".controller.TrackableScheduleActivity"
+            android:name=".view.TrackableScheduleActivity"
             android:label="@string/title_activity_schedule" />
 
         <!--
@@ -49,16 +49,11 @@
             android:value="@string/google_api_key" />
 
         <activity
-            android:name=".controller.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
 
-        <receiver android:enabled="true" android:name="model.NetworkDetector" >
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-
-                <action android:name="android.intent.action.AIRPLANE_MODE" />
-            </intent-filter>
-        </receiver>
+            android:name=".view.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".view.PreferencesActivity" android:label="@string/title_activity_preferences" />
+        <activity android:name=".view.SuggestionListActivity" android:label="@string/title_activity_suggestions"></activity>
     </application>
 
 </manifest>

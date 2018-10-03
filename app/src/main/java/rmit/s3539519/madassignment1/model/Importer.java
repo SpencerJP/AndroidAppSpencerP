@@ -11,6 +11,9 @@ import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import rmit.s3539519.madassignment1.model.services.Observer;
+import rmit.s3539519.madassignment1.model.utilities.SQLiteConnection;
+
 // class to read the file into memory
 public class Importer implements Runnable {
 

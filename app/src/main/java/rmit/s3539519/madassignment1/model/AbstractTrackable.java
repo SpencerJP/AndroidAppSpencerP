@@ -2,6 +2,10 @@ package rmit.s3539519.madassignment1.model;
 
 import android.content.Context;
 
+import java.util.Date;
+
+import rmit.s3539519.madassignment1.model.services.TrackingService;
+
 public abstract class AbstractTrackable implements Trackable {
     protected String id;
     protected String name;
@@ -60,5 +64,13 @@ public abstract class AbstractTrackable implements Trackable {
 
     public double getCurrentLongitude(Context context) {
         return TrackingService.getSingletonInstance(context).getCurrentLongitudeOfTrackable(Integer.parseInt(this.id));
+    }
+
+    /*
+     * @param duration that it would take to get to the trackable from the user's position
+     * @returns a Date object of what time they would get there if they would get there in time, or null if they would not get there in time
+     */
+    public Date getToTrackableInTimeForAStop(long seconds) {
+        return null;
     }
 }

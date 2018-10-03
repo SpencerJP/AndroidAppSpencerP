@@ -17,5 +17,10 @@
     <string name="no_schedule">No schedule for this trackable.</string>
     <string name="title_activity_maps">Map</string>
     <string name="google_api_key">a</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
+    <string name="title_notification_period">Notification Period (minutes)</string>
+    <string name="title_tracking_suggestion_frequency">Tracking Suggestion Frequency (minutes)</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_suggestions">Suggestion List</string>
 
 </resources>
