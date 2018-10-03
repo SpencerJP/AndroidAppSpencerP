@@ -62,6 +62,11 @@ public class Observer {
         return Observer.ObserverSingleton.INSTANCE;
     }
 
+    // only for special circumstances
+    public static Observer getSingletonInstance() {
+        return Observer.ObserverSingleton.INSTANCE;
+    }
+
     public void setTrackingAdapter(TrackingAdapter trackingAdapter) {
         this.trackingAdapter = trackingAdapter;
     }
@@ -81,10 +86,7 @@ public class Observer {
         importer.loadDatabase(importer.readFile(context, R.raw.food_truck_data), trackables, trackings);
     }
 
-
-    public Map<Integer, AbstractTrackable> getTrackables() {
-        Log.i("wtf", Integer.toString(trackables.size()));
-        return trackables;}
+    public Map<Integer, AbstractTrackable> getTrackables() { return trackables;}
     public Map<Integer, Tracking> getTrackings() { return trackings;}
     public Map<Integer, Suggestion> getSuggestions() { return suggestions; }
 

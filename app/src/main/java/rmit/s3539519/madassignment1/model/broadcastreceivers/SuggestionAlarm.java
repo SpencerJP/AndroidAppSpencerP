@@ -12,35 +12,28 @@ import android.util.Log;
 import java.util.Map;
 
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.model.services.SuggestTrackingService;
 
 public class SuggestionAlarm extends BroadcastReceiver {
     private Map<Integer, AbstractTrackable> trackables;
+
+    public SuggestionAlarm() {
+        super();
+    }
     @Override
     public void onReceive(Context context, Intent intent) {
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
-        wl.acquire();
         try {
-            if (this.trackables == null) {
-                Log.i("suggestTracking", "UHHH2");
-            }
-            SuggestTrackingService service = new SuggestTrackingService(context, this.trackables);
+            SuggestTrackingService service = new SuggestTrackingService(context);
             service.suggestTracking();
         }
         catch(SecurityException e) {
             Log.i("Security Exception: ", e.getMessage());
         }
-
-        wl.release();
     }
 
-    public void setAlarm(Context context, Map<Integer, AbstractTrackable> trackables)
+    public void setAlarm(Context context)
     {
-        this.trackables = trackables;
-        if (trackables == null) {
-            Log.i("suggestTracking", "UHHH1");
-        }
         AlarmManager am =( AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(context, SuggestionAlarm.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
@@ -48,10 +41,11 @@ public class SuggestionAlarm extends BroadcastReceiver {
                 "rmit.s3539519.madassignment1", Context.MODE_PRIVATE);
         int currentNotificationPeriod = prefs.getInt("rmit.s3539519.madassignment1.suggestion_frequency", 5); // this is in minutes
         //(currentNotificationPeriod * 60000)
+
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pi);
     }
 
-    public void cancelAlarm(Context context, Map<Integer, AbstractTrackable> trackables)
+    public void cancelAlarm(Context context)
     {
         Intent intent = new Intent(context, SuggestionAlarm.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);

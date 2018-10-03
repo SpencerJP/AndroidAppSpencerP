@@ -2,6 +2,7 @@ package rmit.s3539519.madassignment1.model.utilities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import rmit.s3539519.madassignment1.model.AbstractTrackable;

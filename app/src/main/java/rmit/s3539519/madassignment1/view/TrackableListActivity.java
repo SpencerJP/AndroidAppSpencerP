@@ -78,7 +78,7 @@ public class TrackableListActivity extends AppCompatActivity {
 
         trackables = new HashMap<Integer, AbstractTrackable>(observer.getTrackables());
         SuggestionAlarm alarm = new SuggestionAlarm();
-        alarm.setAlarm(this, trackables);
+        alarm.setAlarm(this);
         // find spinner
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
         // find list

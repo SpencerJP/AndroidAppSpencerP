@@ -34,19 +34,13 @@ public class SuggestTrackingService {
     private Suggestion potentialSuggestion;
     private Map<Integer, AbstractTrackable> trackables;
 
-    public SuggestTrackingService(Context context, Map<Integer, AbstractTrackable> trackables) {
+    public SuggestTrackingService(Context context) {
         this.context = context;
-        this.trackables = trackables;
-        if (trackables == null) {
-            Log.i("suggestTracking", "UHHH");
-        }
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         locationTracker = new LocationTracker();
     }
 
     public void suggestTracking() throws SecurityException {
-        Log.i("suggestTracking", "TEST1");
-
         if (!canAccessLocation(context)) {
             return;
         }
@@ -56,9 +50,10 @@ public class SuggestTrackingService {
         double latitude = locationTracker.getLatitude();
         dmThreads = new ArrayList<DistanceMatrixAPIThread>();
         Log.i("suggestTracking", "TEST2");
-        for(Map.Entry<Integer, AbstractTrackable> trackableEntry : trackables.entrySet()) {
+        for(Map.Entry<Integer, AbstractTrackable> trackableEntry : Observer.getSingletonInstance().getTrackables().entrySet()) {
 
             Log.i("suggestTracking", "TEST7");
+            // TODO REMOVE TRACKABLES WITHOUT  A LOCATION AND ENSURE THAT THE  CORREECT LOCATION IS PARSED
             DistanceMatrixAPIThread newThread = new DistanceMatrixAPIThread(context, trackableEntry.getValue(), latitude, longitude, trackableEntry.getValue().getCurrentLatitude(context), trackableEntry.getValue().getCurrentLongitude(context));
             Thread t = new Thread(newThread);
             dmThreads.add(newThread);
@@ -71,31 +66,35 @@ public class SuggestTrackingService {
 
             Iterator<DistanceMatrixAPIThread> iter = dmThreads.iterator();
             while(iter.hasNext()) {
-                Log.i("suggestTracking", "TEST6");
-                if (iter.next().isFinished() == true) {
-                    DistanceMatrixModel model = iter.next().getReturnValue();
-                    iter.remove();
-                    if (closestTrackable != null) {
-                        if(model != null) {
-                            if(model.getTimeDifference() < closestTrackable.getTimeDifference()) {
-                                closestTrackable = model;
+                Log.i("suggestTracking", Integer.toString(dmThreads.size()));
+                DistanceMatrixAPIThread current = iter.next();
+                if (current != null) {
+                    if(current.isFinished()) {
+                        DistanceMatrixModel model = current.getReturnValue();
+                        iter.remove();
+                        if (closestTrackable != null) {
+                            if(model != null) {
+                                if(model.getTimeDifference() < closestTrackable.getTimeDifference()) {
+                                    closestTrackable = model;
+                                }
                             }
-                        }
 
-                    }
-                    else {
-                        closestTrackable = model;
+                        }
+                        else {
+                            closestTrackable = model;
+                        }
                     }
                 }
             }
         }
+        Log.i("suggestTracking", "TEST11");
         if(closestTrackable != null) {
-            Log.i("suggestTracking", "TEST4");
+
+
+            Log.i("suggestTracking", "TEST10");
             Suggestion suggestion = new Suggestion(closestTrackable);
             Observer.getSingletonInstance(context).addSuggestion(suggestion);
         }
-
-
     }
 
     public boolean canAccessLocation(Context context) {

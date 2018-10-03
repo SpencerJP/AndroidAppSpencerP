@@ -60,7 +60,7 @@
         <activity android:name=".view.PreferencesActivity" android:label="@string/title_activity_preferences" />
         <activity android:name=".view.SuggestionListActivity" android:label="@string/title_activity_suggestions"></activity>
 
-        <receiver android:process=":remote" android:name=".model.broadcastreceivers.SuggestionAlarm"></receiver>
+        <receiver android:name=".model.broadcastreceivers.SuggestionAlarm"></receiver>
     </application>
 
 </manifest>
