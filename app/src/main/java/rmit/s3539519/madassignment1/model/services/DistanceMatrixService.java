@@ -40,7 +40,7 @@ public class DistanceMatrixService {
 
     public DistanceMatrixModel makeAPIRequest(AbstractTrackable trackable, double sourceLat, double sourceLong, double destLat, double destLong) {
         try {
-            URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&key=" + "AIzaSyDl4OEv3cjEhEu87910XI4eCdYDRS3afZI" + "&" + String.format("origins=%.6f,%.6f&destinations=%.6f,%.6f", sourceLat, sourceLong, destLat, destLong));
+            URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&&mode=walking&key=" + "AIzaSyDl4OEv3cjEhEu87910XI4eCdYDRS3afZI" + "&" + String.format("origins=%.6f,%.6f&destinations=%.6f,%.6f", sourceLat, sourceLong, destLat, destLong));
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "application/json");

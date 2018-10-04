@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.controller.ListOnClickListener;
 
@@ -14,6 +16,7 @@ class SuggestionViewHolder extends TrackRecyclerViewHolder {
     private TextView trackableName;
     private TextView date;
     private TextView distance;
+    private ListOnClickListener listener;
 
     public SuggestionViewHolder(Context context, @NonNull View itemView) {
         super(itemView, context);
@@ -22,6 +25,9 @@ class SuggestionViewHolder extends TrackRecyclerViewHolder {
         date = itemView.findViewById(R.id.suggestion_date);
         distance = itemView.findViewById(R.id.suggestion_distance);
         id = itemView.findViewById(R.id.suggestion_id);
+        listener = new ListOnClickListener(context, this);
+        itemView.setOnClickListener(listener);
+        itemView.setOnLongClickListener(listener);
     }
 
     public TextView getSuggestionTimeTo() {

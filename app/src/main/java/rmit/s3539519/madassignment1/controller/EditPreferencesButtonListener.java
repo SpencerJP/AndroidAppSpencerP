@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import rmit.s3539519.madassignment1.R;
+import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.view.PreferencesActivity;
 import rmit.s3539519.madassignment1.view.viewmodels.EditPreferencesModel;
 
@@ -34,6 +35,9 @@ public class EditPreferencesButtonListener implements View.OnClickListener {
             }
             prefs.edit().putInt("rmit.s3539519.madassignment1.notification_period", notificationPeriod).apply();
             prefs.edit().putInt("rmit.s3539519.madassignment1.suggestion_frequency", suggestionFrequency).apply();
+            // restart Alarm
+            Observer.getSingletonInstance().getSuggestionAlarm().cancelAlarm(context);
+            Observer.getSingletonInstance().getSuggestionAlarm().setAlarm(context);
             context.finish();
         }
     }

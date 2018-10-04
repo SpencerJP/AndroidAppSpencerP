@@ -37,36 +37,33 @@ public class SuggestTrackingService {
     public SuggestTrackingService(Context context) {
         this.context = context;
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationTracker = new LocationTracker();
+        locationTracker = new LocationTracker(context, locationManager);
     }
 
     public void suggestTracking() throws SecurityException {
         if (!canAccessLocation(context)) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationTracker);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationTracker);
         double longitude = locationTracker.getLongitude();
         double latitude = locationTracker.getLatitude();
+
         dmThreads = new ArrayList<DistanceMatrixAPIThread>();
-        Log.i("suggestTracking", "TEST2");
         for(Map.Entry<Integer, AbstractTrackable> trackableEntry : Observer.getSingletonInstance().getTrackables().entrySet()) {
 
-            Log.i("suggestTracking", "TEST7");
-            // TODO REMOVE TRACKABLES WITHOUT  A LOCATION AND ENSURE THAT THE  CORREECT LOCATION IS PARSED
+            if ((trackableEntry.getValue().getCurrentLatitude(context) == 0) || trackableEntry.getValue().getCurrentLongitude(context) ==  0) {
+                continue;
+            }
             DistanceMatrixAPIThread newThread = new DistanceMatrixAPIThread(context, trackableEntry.getValue(), latitude, longitude, trackableEntry.getValue().getCurrentLatitude(context), trackableEntry.getValue().getCurrentLongitude(context));
             Thread t = new Thread(newThread);
             dmThreads.add(newThread);
             t.start();
         }
 
-        Log.i("suggestTracking", "TEST3");
         DistanceMatrixModel closestTrackable = null;
         while(dmThreads.size() != 0) {
 
             Iterator<DistanceMatrixAPIThread> iter = dmThreads.iterator();
             while(iter.hasNext()) {
-                Log.i("suggestTracking", Integer.toString(dmThreads.size()));
                 DistanceMatrixAPIThread current = iter.next();
                 if (current != null) {
                     if(current.isFinished()) {
@@ -87,11 +84,7 @@ public class SuggestTrackingService {
                 }
             }
         }
-        Log.i("suggestTracking", "TEST11");
         if(closestTrackable != null) {
-
-
-            Log.i("suggestTracking", "TEST10");
             Suggestion suggestion = new Suggestion(closestTrackable);
             Observer.getSingletonInstance(context).addSuggestion(suggestion);
         }

@@ -1,12 +1,6 @@
 package rmit.s3539519.madassignment1.view;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -16,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,9 +20,7 @@ import java.util.HashMap;
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
 import rmit.s3539519.madassignment1.model.broadcastreceivers.SuggestionAlarm;
-import rmit.s3539519.madassignment1.model.services.ConnectivityDetector;
-import rmit.s3539519.madassignment1.model.services.SuggestTrackingService;
-import rmit.s3539519.madassignment1.model.utilities.DistanceMatrixAPIThread;
+import rmit.s3539519.madassignment1.model.broadcastreceivers.ConnectivityDetector;
 import rmit.s3539519.madassignment1.model.Importer;
 import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.view.viewmodels.GeoTrackerSpinnerAdapter;
@@ -78,6 +69,7 @@ public class TrackableListActivity extends AppCompatActivity {
 
         trackables = new HashMap<Integer, AbstractTrackable>(observer.getTrackables());
         SuggestionAlarm alarm = new SuggestionAlarm();
+        observer.setSuggestionAlarm(alarm);
         alarm.setAlarm(this);
         // find spinner
         Spinner categorySpinner = findViewById(R.id.categorySpinner);

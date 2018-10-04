@@ -22,5 +22,8 @@
     <string name="title_tracking_suggestion_frequency">Tracking Suggestion Frequency (minutes)</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_suggestions">Suggestion List</string>
+    <string name="delete_suggestion">Delete Suggestion</string>
+    <string name="add_tracking_from_suggestion">Add Tracking From Suggestion</string>
+    <string name="are_you_sure_add_tracking">Are you sure you want to add this as a tracking?</string>
 
 </resources>

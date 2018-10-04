@@ -21,6 +21,7 @@ import rmit.s3539519.madassignment1.model.Importer;
 import rmit.s3539519.madassignment1.model.Suggestion;
 import rmit.s3539519.madassignment1.model.Tracking;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
+import rmit.s3539519.madassignment1.model.broadcastreceivers.SuggestionAlarm;
 import rmit.s3539519.madassignment1.model.utilities.SQLiteConnection;
 import rmit.s3539519.madassignment1.model.utilities.TrackingDatabaseThread;
 import rmit.s3539519.madassignment1.view.viewmodels.SuggestionAdapter;
@@ -37,6 +38,7 @@ public class Observer {
     private TrackingAdapter trackingAdapter;
     private TrackableAdapter trackableAdapter;
     private SuggestionAdapter suggestionAdapter;
+    private SuggestionAlarm suggestionAlarm;
 
     // empty constructor
     private Observer() {
@@ -49,6 +51,17 @@ public class Observer {
 
     public void setSuggestionAdapter(SuggestionAdapter suggestionAdapter) {
         this.suggestionAdapter = suggestionAdapter;
+    }
+
+    public void addTrackingFromSuggestion(int id) {
+    }
+
+    public void setSuggestionAlarm(SuggestionAlarm suggestionAlarm) {
+        this.suggestionAlarm = suggestionAlarm;
+    }
+
+    public SuggestionAlarm getSuggestionAlarm() {
+        return suggestionAlarm;
     }
 
     // cloned singleton methods from Casper's TrackingService.java
@@ -132,6 +145,19 @@ public class Observer {
         if (suggestionAdapter != null) {
             suggestionAdapter.updateSuggestions(suggestions);
         }
+    }
+
+    public void removeSuggestion(int id) {
+        if (suggestions.containsKey(id)) {
+            suggestions.remove(id);
+            if (suggestionAdapter != null) {
+                suggestionAdapter.updateSuggestions(suggestions);
+            }
+        }
+    }
+
+    public Suggestion getSuggestionById(int id) {
+        return suggestions.get(id);
     }
 
     public Tracking getTrackingById(int id) {

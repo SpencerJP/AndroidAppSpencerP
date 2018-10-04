@@ -17,8 +17,7 @@ public class Tracking implements Comparable<Tracking> {
     private Date startTime;
     private Date endTime;
     private Date meetTime;
-    private double longitude;
-    private double latitude;
+    private long distance;
 
     public Tracking(int trackableId, String title, Date startTime, Date endTime, Date meetTime) {
         trackingId = Integer.toString(trackableId);
@@ -47,6 +46,10 @@ public class Tracking implements Comparable<Tracking> {
 
     public String getStartTimeTwelveHourFormat() {
         return new SimpleDateFormat("hh:mma").format(startTime);
+    }
+
+    public long getDistance() {
+        return distance;
     }
 
     public Date getEndTime() {
@@ -100,5 +103,9 @@ public class Tracking implements Comparable<Tracking> {
         Thread t = new Thread(tdt);
         t.start();
         return tdt.success;
+    }
+
+    public void setDistance(long distance) {
+        this.distance = distance;
     }
 }

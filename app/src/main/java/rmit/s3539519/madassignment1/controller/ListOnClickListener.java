@@ -15,6 +15,7 @@ import java.util.Locale;
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.view.EditTrackingActivity;
 import rmit.s3539519.madassignment1.view.MapsActivity;
+import rmit.s3539519.madassignment1.view.SuggestionListActivity;
 import rmit.s3539519.madassignment1.view.TrackableListActivity;
 import rmit.s3539519.madassignment1.view.TrackingListActivity;
 import rmit.s3539519.madassignment1.model.services.Observer;
@@ -50,6 +51,15 @@ public class ListOnClickListener implements View.OnClickListener, View.OnLongCli
                 addTracking.putExtra(EXTRA_TRACKABLE_ID, viewHolder.getId().getText());
                 // tell the intent we're editing this one
                 addTracking.putExtra(EXTRA_EDIT_BOOL, true);
+                context.startActivity(addTracking);
+            }
+        }
+        if( context instanceof SuggestionListActivity) {
+            Intent addTracking = new Intent(context, EditTrackingActivity.class);
+            if (viewHolder != null) {
+                String suggestionId = (String) viewHolder.getId().getText();
+                addTracking.putExtra(EXTRA_TRACKABLE_ID, Observer.getSingletonInstance(context).getSuggestionById(Integer.parseInt(suggestionId)).getSuggestedTrackable().getId());
+
                 context.startActivity(addTracking);
             }
         }
@@ -98,6 +108,17 @@ public class ListOnClickListener implements View.OnClickListener, View.OnLongCli
                             Toast.LENGTH_SHORT).show();
                 }
             }
+        }
+        if( context instanceof SuggestionListActivity) {
+                if (viewHolder != null) {
+                    final int suggestionId = Integer.parseInt(viewHolder.getId().getText().toString());
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setTitle(R.string.delete_suggestion);
+                    alert.setMessage(R.string.are_you_sure_delete);
+                    alert.setPositiveButton(android.R.string.yes, new DialogBoxListener(context, suggestionId, "positive_suggestion_delete"));
+                    alert.setNegativeButton(android.R.string.no, new DialogBoxListener(context, suggestionId, "negative_suggestion_delete"));
+                    alert.show();
+                }
         }
         return true;
     }

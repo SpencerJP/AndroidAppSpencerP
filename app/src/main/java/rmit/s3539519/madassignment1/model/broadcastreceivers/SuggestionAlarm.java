@@ -42,7 +42,7 @@ public class SuggestionAlarm extends BroadcastReceiver {
         int currentNotificationPeriod = prefs.getInt("rmit.s3539519.madassignment1.suggestion_frequency", 5); // this is in minutes
         //(currentNotificationPeriod * 60000)
 
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (currentNotificationPeriod * 60000), pi);
     }
 
     public void cancelAlarm(Context context)
