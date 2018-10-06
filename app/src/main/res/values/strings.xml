@@ -33,5 +33,6 @@
     <string name="new_suggestion_available_from_suggestion_alarm">New suggestion available from timer!</string>
     <string name="channel_name">NotificationChannel</string>
     <string name="channel_description">Channel for Geotracker</string>
+    <string name="reminder">Remind me again in %d minutes!</string>
 
 </resources>
