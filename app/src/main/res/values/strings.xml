@@ -17,7 +17,7 @@
     <string name="no_schedule">No schedule for this trackable.</string>
     <string name="title_activity_maps">Map</string>
     <string name="google_api_key">a</string>
-    <string name="title_activity_preferences">PreferencesActivity</string>
+    <string name="title_activity_preferences">Preferences</string>
     <string name="title_notification_period">Notification Period (minutes)</string>
     <string name="title_tracking_suggestion_frequency">Tracking Suggestion Frequency (minutes)</string>
     <string name="title_activity_main">MainActivity</string>
@@ -25,5 +25,13 @@
     <string name="delete_suggestion">Delete Suggestion</string>
     <string name="add_tracking_from_suggestion">Add Tracking From Suggestion</string>
     <string name="are_you_sure_add_tracking">Are you sure you want to add this as a tracking?</string>
+    <string name="suggest_now">Suggest Now</string>
+    <string name="wait_for_operation">Please wait for the current operation to finish.</string>
+    <string name="new_suggestion_available">New suggestion available!</string>
+    <string name="new_suggestion_available_from_suggest_now">New suggestion available from the button!</string>
+    <string name="new_suggestion_available_from_connectivity_detector">New suggestion  available from connectivity detector!</string>
+    <string name="new_suggestion_available_from_suggestion_alarm">New suggestion available from timer!</string>
+    <string name="channel_name">NotificationChannel</string>
+    <string name="channel_description">Channel for Geotracker</string>
 
 </resources>

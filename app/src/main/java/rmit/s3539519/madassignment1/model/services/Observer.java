@@ -17,7 +17,8 @@ import java.util.Set;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
-import rmit.s3539519.madassignment1.model.Importer;
+import rmit.s3539519.madassignment1.model.broadcastreceivers.NotificationAlarm;
+import rmit.s3539519.madassignment1.model.utilities.Importer;
 import rmit.s3539519.madassignment1.model.Suggestion;
 import rmit.s3539519.madassignment1.model.Tracking;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
@@ -39,6 +40,8 @@ public class Observer {
     private TrackableAdapter trackableAdapter;
     private SuggestionAdapter suggestionAdapter;
     private SuggestionAlarm suggestionAlarm;
+    private NotificationAlarm notificationAlarm;
+    private int nextNotificationId = 0;
 
     // empty constructor
     private Observer() {
@@ -62,6 +65,18 @@ public class Observer {
 
     public SuggestionAlarm getSuggestionAlarm() {
         return suggestionAlarm;
+    }
+
+    public void setNotificationAlarm(NotificationAlarm notificationAlarm) {
+        this.notificationAlarm = notificationAlarm;
+    }
+
+    public NotificationAlarm getNotificationAlarm() {
+        return notificationAlarm;
+    }
+
+    public int getNextNotificationId() {
+        return nextNotificationId++;
     }
 
     // cloned singleton methods from Casper's TrackingService.java

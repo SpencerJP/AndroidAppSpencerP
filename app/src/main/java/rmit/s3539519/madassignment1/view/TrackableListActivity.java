@@ -19,9 +19,10 @@ import java.util.HashMap;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.broadcastreceivers.NotificationAlarm;
 import rmit.s3539519.madassignment1.model.broadcastreceivers.SuggestionAlarm;
 import rmit.s3539519.madassignment1.model.broadcastreceivers.ConnectivityDetector;
-import rmit.s3539519.madassignment1.model.Importer;
+import rmit.s3539519.madassignment1.model.utilities.Importer;
 import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.view.viewmodels.GeoTrackerSpinnerAdapter;
 import rmit.s3539519.madassignment1.controller.CategorySpinnerListener;
@@ -51,10 +52,16 @@ public class TrackableListActivity extends AppCompatActivity {
         intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         this.registerReceiver(new ConnectivityDetector(), intentFilter);
 
-
-
         String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
         this.requestPermissions(perms, 5919);
+
+        SuggestionAlarm suggestionAlarm = new SuggestionAlarm();
+        observer.setSuggestionAlarm(suggestionAlarm);
+        suggestionAlarm.setAlarm(this);
+
+        NotificationAlarm notificationAlarm = new NotificationAlarm();
+        observer.setNotificationAlarm(notificationAlarm);
+        notificationAlarm.setAlarm(this);
 
     }
 
@@ -68,9 +75,7 @@ public class TrackableListActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(new NavigationItemSelectedListener(this, navigation));
 
         trackables = new HashMap<Integer, AbstractTrackable>(observer.getTrackables());
-        SuggestionAlarm alarm = new SuggestionAlarm();
-        observer.setSuggestionAlarm(alarm);
-        alarm.setAlarm(this);
+
         // find spinner
         Spinner categorySpinner = findViewById(R.id.categorySpinner);
         // find list

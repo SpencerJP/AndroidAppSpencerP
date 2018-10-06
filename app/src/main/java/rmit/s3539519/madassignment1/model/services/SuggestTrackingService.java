@@ -12,12 +12,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
 import rmit.s3539519.madassignment1.model.DistanceMatrixModel;
 import rmit.s3539519.madassignment1.model.Suggestion;
@@ -40,14 +42,33 @@ public class SuggestTrackingService {
         locationTracker = new LocationTracker(context, locationManager);
     }
 
-    public void suggestTracking() throws SecurityException {
+    public boolean suggestTracking() throws SecurityException {
         if (!canAccessLocation(context)) {
-            return;
+            return false;
         }
         double longitude = locationTracker.getLongitude();
         double latitude = locationTracker.getLatitude();
 
+        if  ((longitude == 0) || latitude == 0) {
+
+            try {
+
+                Activity uiThread = (Activity) context;
+                uiThread.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, "No location available!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            catch(ClassCastException e) { /* No toast */ }
+
+            return false;
+        }
+
         dmThreads = new ArrayList<DistanceMatrixAPIThread>();
+        // make a new thread for each distance  matrix api call
         for(Map.Entry<Integer, AbstractTrackable> trackableEntry : Observer.getSingletonInstance().getTrackables().entrySet()) {
 
             if ((trackableEntry.getValue().getCurrentLatitude(context) == 0) || trackableEntry.getValue().getCurrentLongitude(context) ==  0) {
@@ -59,6 +80,7 @@ public class SuggestTrackingService {
             t.start();
         }
 
+        // process each thread, determining the closest trackable
         DistanceMatrixModel closestTrackable = null;
         while(dmThreads.size() != 0) {
 
@@ -87,7 +109,11 @@ public class SuggestTrackingService {
         if(closestTrackable != null) {
             Suggestion suggestion = new Suggestion(closestTrackable);
             Observer.getSingletonInstance(context).addSuggestion(suggestion);
+
+            return true;
+
         }
+        return false;
     }
 
     public boolean canAccessLocation(Context context) {

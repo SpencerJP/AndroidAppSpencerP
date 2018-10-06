@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.model;
+package rmit.s3539519.madassignment1.model.utilities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,9 @@ import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.FoodTruck;
+import rmit.s3539519.madassignment1.model.Tracking;
 import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.model.utilities.SQLiteConnection;
 
