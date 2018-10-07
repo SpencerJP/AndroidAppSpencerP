@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import rmit.s3539519.madassignment1.model.services.Observer;
+import rmit.s3539519.madassignment1.model.utilities.DistanceMatrixAPIThread;
 import rmit.s3539519.madassignment1.model.utilities.TrackingDatabaseThread;
 
 public class Tracking implements Comparable<Tracking> {
@@ -18,6 +19,7 @@ public class Tracking implements Comparable<Tracking> {
     private Date endTime;
     private Date meetTime;
     private long distance;
+    private long timeUntilLocation;
 
     public Tracking(int trackableId, String title, Date startTime, Date endTime, Date meetTime) {
         trackingId = Integer.toString(trackableId);
@@ -26,6 +28,18 @@ public class Tracking implements Comparable<Tracking> {
         this.startTime = startTime;
         this.endTime = endTime;
         this.meetTime = meetTime;
+    }
+
+    public Tracking(int trackableId, String title, Date startTime, Date endTime, Date meetTime, String suggestionId) {
+        trackingId = Integer.toString(trackableId);
+        this.trackableId = trackableId;
+        this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.meetTime = meetTime;
+
+        Suggestion suggestion = Observer.getSingletonInstance().getSuggestionById(Integer.parseInt(suggestionId));
+        this.timeUntilLocation = (suggestion.getTimeToTrackableInSeconds() / 60);
     }
 
     public String getTrackingId() {
@@ -107,5 +121,13 @@ public class Tracking implements Comparable<Tracking> {
 
     public void setDistance(long distance) {
         this.distance = distance;
+    }
+
+    public long getTimeUntilLocation() {
+        return timeUntilLocation;
+    }
+
+    public void setTimeUntilLocation(long timeUntilLocation) {
+        this.timeUntilLocation =  timeUntilLocation;
     }
 }

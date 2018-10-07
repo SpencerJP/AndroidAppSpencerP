@@ -13,6 +13,7 @@ public class DistanceMatrixModel {
     public DistanceMatrixModel(AbstractTrackable trackable, String output) throws JSONException {
             this.trackable = trackable;
             JSONObject obj = new JSONObject(output);
+
             this.destinationAddress = obj.getJSONArray("destination_addresses").getString(0);
             this.destinationAddress = obj.getJSONArray("origin_addresses").getString(0);
             this.distanceInMetres = obj.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getJSONObject("distance").getInt("value");

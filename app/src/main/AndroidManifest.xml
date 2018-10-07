@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.TrackableListActivity">
+        <activity android:name=".view.activities.TrackableListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,13 +32,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.TrackingListActivity"
+            android:name=".view.activities.TrackingListActivity"
             android:label="@string/title_activity_tracking" />
         <activity
-            android:name=".view.EditTrackingActivity"
+            android:name=".view.activities.EditTrackingActivity"
             android:label="@string/title_edit_tracking" />
         <activity
-            android:name=".view.TrackableScheduleActivity"
+            android:name=".view.activities.TrackableScheduleActivity"
             android:label="@string/title_activity_schedule" />
 
         <!--
@@ -55,13 +55,14 @@
 
         <activity
 
-            android:name=".view.MapsActivity"
+            android:name=".view.activities.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".view.PreferencesActivity" android:label="@string/title_activity_preferences" />
-        <activity android:name=".view.SuggestionListActivity" android:label="@string/title_activity_suggestions"></activity>
+        <activity android:name=".view.activities.PreferencesActivity" android:label="@string/title_activity_preferences" />
+        <activity android:name=".view.activities.SuggestionListActivity" android:label="@string/title_activity_suggestions"></activity>
 
         <receiver android:name=".model.broadcastreceivers.SuggestionAlarm"></receiver>
         <receiver android:name=".model.broadcastreceivers.NotificationAlarm"></receiver>
+        <receiver android:name=".model.broadcastreceivers.NotificationReminder"></receiver>
         <receiver android:name=".model.broadcastreceivers.NotificationReminderAlarm"></receiver>
     </application>
 

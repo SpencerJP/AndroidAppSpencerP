@@ -38,11 +38,14 @@ public class SuggestTrackingService {
 
     public SuggestTrackingService(Context context) {
         this.context = context;
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationTracker = new LocationTracker(context, locationManager);
+        locationManager = Observer.getSingletonInstance(context).getLocationManager();
+        locationTracker = Observer.getSingletonInstance(context).getLocationTracker();
     }
 
+    // this method starts a bunch of DistanceMatrix calls with their own threads. It receives the results and picks the closest one to the user.
+    // then it adds  it to the suggestion list.
     public boolean suggestTracking() throws SecurityException {
+
         if (!canAccessLocation(context)) {
             return false;
         }
@@ -62,7 +65,7 @@ public class SuggestTrackingService {
                     }
                 });
             }
-            catch(ClassCastException e) { /* No toast */ }
+            catch(ClassCastException e) { /* No toast */  }
 
             return false;
         }
@@ -83,7 +86,6 @@ public class SuggestTrackingService {
         // process each thread, determining the closest trackable
         DistanceMatrixModel closestTrackable = null;
         while(dmThreads.size() != 0) {
-
             Iterator<DistanceMatrixAPIThread> iter = dmThreads.iterator();
             while(iter.hasNext()) {
                 DistanceMatrixAPIThread current = iter.next();

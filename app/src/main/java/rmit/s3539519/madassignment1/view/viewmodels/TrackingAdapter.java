@@ -51,7 +51,9 @@ public class TrackingAdapter extends RecyclerListAdapter {
             holder.getMeetTime().setText("Meet time: " + meetTime);
             holder.getBetweenTimes().setText(String.format("Between: %s - %s", startTime, endTime));
             holder.getCurrentLocation().setText(String.format("Location: %.6f, %.6f", content.get(listPosition).getLatitude(context), content.get(listPosition).getLongitude(context)));
-
+            if( content.get(listPosition).getTimeUntilLocation() != 0) {
+                holder.getTimeUntilLocation().setText(Long.toString((content.get(listPosition).getTimeUntilLocation() / 60)) + " minutes from your current location (walking)");
+            }
         }
     }
 

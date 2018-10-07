@@ -11,14 +11,14 @@ import rmit.s3539519.madassignment1.model.services.DistanceMatrixService;
 
 public class DistanceMatrixAPIThread implements Runnable {
 
-    private DistanceMatrixModel returnValue;
-    private double sourceLat;
-    private double sourceLong;
-    private double destLat;
-    private double destLong;
-    private Context context;
-    private AbstractTrackable trackable;
-    private boolean finished = false;
+    protected DistanceMatrixModel returnValue;
+    protected double sourceLat;
+    protected double sourceLong;
+    protected double destLat;
+    protected double destLong;
+    protected Context context;
+    protected AbstractTrackable trackable;
+    protected boolean finished = false;
 
     public DistanceMatrixAPIThread(Context context, AbstractTrackable trackable, double sourceLat, double sourceLong, double destLat, double destLong) {
         this.trackable = trackable;

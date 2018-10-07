@@ -16,6 +16,7 @@ class SuggestionViewHolder extends TrackRecyclerViewHolder {
     private TextView trackableName;
     private TextView date;
     private TextView distance;
+    private TextView id;
     private ListOnClickListener listener;
 
     public SuggestionViewHolder(Context context, @NonNull View itemView) {
@@ -28,6 +29,10 @@ class SuggestionViewHolder extends TrackRecyclerViewHolder {
         listener = new ListOnClickListener(context, this);
         itemView.setOnClickListener(listener);
         itemView.setOnLongClickListener(listener);
+    }
+
+    public TextView getId() {
+        return id;
     }
 
     public TextView getSuggestionTimeTo() {

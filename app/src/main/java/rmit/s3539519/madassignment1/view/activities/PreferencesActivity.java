@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;

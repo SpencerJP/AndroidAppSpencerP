@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +15,10 @@ import rmit.s3539519.madassignment1.view.viewmodels.EditTrackableModel;
 public class EditTrackingActivity extends AppCompatActivity {
     private static final String EXTRA_TRACKABLE_ID = "s3539519_PassTrackingID";
     private static final String EXTRA_EDIT_BOOL = "s3539519_EditMode";
+    private static final String EXTRA_SUGGESTION_ID = "s3539519_PassSuggestionID";
     private static final long MILLISECONDS_IN_A_MINUTE = 60000;
     private String id;
+    private String suggestionId;
     private EditTrackableModel editTrackableModelView;
     private EditText meetingTimeField;
 
@@ -28,9 +30,15 @@ public class EditTrackingActivity extends AppCompatActivity {
         // get parsed ID from intent, the selected trackable
         Intent intent = getIntent();
         id = intent.getStringExtra(EXTRA_TRACKABLE_ID);
+        suggestionId = intent.getStringExtra(EXTRA_SUGGESTION_ID);
 
         editTrackableModelView = new EditTrackableModel(this);
 
+
+        if(suggestionId != null) {
+            TextView suggestionIdField = findViewById(R.id.suggestionIdHidden);
+            suggestionIdField.setText(suggestionId);
+        }
         meetingTimeField = findViewById(R.id.meetingTimeField);
         // check if we're editing
         if(intent.getBooleanExtra(EXTRA_EDIT_BOOL, false)) {

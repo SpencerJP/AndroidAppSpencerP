@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Locale;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.view.EditTrackingActivity;
-import rmit.s3539519.madassignment1.view.MapsActivity;
-import rmit.s3539519.madassignment1.view.SuggestionListActivity;
-import rmit.s3539519.madassignment1.view.TrackableListActivity;
-import rmit.s3539519.madassignment1.view.TrackingListActivity;
+import rmit.s3539519.madassignment1.view.activities.EditTrackingActivity;
+import rmit.s3539519.madassignment1.view.activities.MapsActivity;
+import rmit.s3539519.madassignment1.view.activities.SuggestionListActivity;
+import rmit.s3539519.madassignment1.view.activities.TrackableListActivity;
+import rmit.s3539519.madassignment1.view.activities.TrackingListActivity;
 import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
 import rmit.s3539519.madassignment1.model.services.TrackingService;
@@ -25,6 +25,7 @@ import rmit.s3539519.madassignment1.view.viewmodels.TrackRecyclerViewHolder;
 
 public class ListOnClickListener implements View.OnClickListener, View.OnLongClickListener {
     private static final String EXTRA_TRACKABLE_ID = "s3539519_PassTrackingID";
+    private static final String EXTRA_SUGGESTION_ID = "s3539519_PassSuggestionID";
     private static final String EXTRA_EDIT_BOOL = "s3539519_EditMode";
     private static final String EXTRA_SCHEDULE_INFORMATION = "s3539519_ScheduleInformation";
 
@@ -59,7 +60,7 @@ public class ListOnClickListener implements View.OnClickListener, View.OnLongCli
             if (viewHolder != null) {
                 String suggestionId = (String) viewHolder.getId().getText();
                 addTracking.putExtra(EXTRA_TRACKABLE_ID, Observer.getSingletonInstance(context).getSuggestionById(Integer.parseInt(suggestionId)).getSuggestedTrackable().getId());
-
+                addTracking.putExtra(EXTRA_SUGGESTION_ID, suggestionId);
                 context.startActivity(addTracking);
             }
         }
@@ -111,7 +112,7 @@ public class ListOnClickListener implements View.OnClickListener, View.OnLongCli
         }
         if( context instanceof SuggestionListActivity) {
                 if (viewHolder != null) {
-                    final int suggestionId = Integer.parseInt(viewHolder.getId().getText().toString());
+                    int suggestionId = Integer.parseInt(viewHolder.getId().getText().toString());
                     AlertDialog.Builder alert = new AlertDialog.Builder(context);
                     alert.setTitle(R.string.delete_suggestion);
                     alert.setMessage(R.string.are_you_sure_delete);

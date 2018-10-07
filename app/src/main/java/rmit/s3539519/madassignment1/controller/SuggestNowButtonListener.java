@@ -25,20 +25,39 @@ public class SuggestNowButtonListener implements View.OnClickListener {
     }
     @Override
     public void onClick(View v) {
-        SuggestTrackingService service = new SuggestTrackingService(context);
-        service.suggestTracking();
-        try {
+        if (lock) {
+            try {
 
-            Activity uiThread = (Activity) context;
-            uiThread.runOnUiThread(new Runnable() {
+                Activity uiThread = (Activity) context;
+                uiThread.runOnUiThread(new Runnable() {
 
-                @Override
-                public void run() {
-                    Toast.makeText(context, R.string.new_suggestion_available_from_suggest_now, Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, R.string.please_wait, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            catch(ClassCastException e) { /* No toast */ }
+
         }
-        catch(ClassCastException e) { /* No toast */ }
+        else {
+            lock = true;
+            SuggestTrackingService service = new SuggestTrackingService(context);
+            service.suggestTracking();
+            try {
+
+                Activity uiThread = (Activity) context;
+                uiThread.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, R.string.new_suggestion_available_from_suggest_now, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            catch(ClassCastException e) { /* No toast */ }
+            lock = false;
+        }
 
     }
 

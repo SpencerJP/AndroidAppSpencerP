@@ -27,26 +27,21 @@ public class LocationTracker implements LocationListener {
 
     public Location getLocation() throws SecurityException {
         try {
-            Log.i("SuggestTracking", "TEST1");
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
 
-            Log.i("SuggestTracking", "TEST2");
             // getting GPS status
             boolean isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-            Log.i("SuggestTracking", "TEST3");
             // getting network status
             boolean isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            Log.i("SuggestTracking", "TEST4");
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
             } else {
                 // First get location from Network Provider
 
-                Log.i("SuggestTracking", "TEST5");
                 if (isNetworkEnabled) {
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
@@ -63,10 +58,8 @@ public class LocationTracker implements LocationListener {
                 }
                 // if GPS Enabled get lat/long using GPS Services
 
-                Log.i("SuggestTracking", "TEST6");
                 if (isGPSEnabled) {
 
-                    Log.i("SuggestTracking", "TEST7");
                     if (location == null) {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,

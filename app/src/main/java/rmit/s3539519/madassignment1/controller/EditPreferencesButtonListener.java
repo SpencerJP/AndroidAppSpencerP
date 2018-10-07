@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.services.Observer;
-import rmit.s3539519.madassignment1.view.PreferencesActivity;
+import rmit.s3539519.madassignment1.view.activities.PreferencesActivity;
 import rmit.s3539519.madassignment1.view.viewmodels.EditPreferencesModel;
 
 public class EditPreferencesButtonListener implements View.OnClickListener {

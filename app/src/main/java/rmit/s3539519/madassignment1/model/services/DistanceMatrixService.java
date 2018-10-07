@@ -46,6 +46,7 @@ public class DistanceMatrixService {
             con.setRequestProperty("Content-Type", "application/json");
             con.setConnectTimeout(5000);
             con.setReadTimeout(5000);
+            Log.i("DistanceMatrix", "url = " + con.getURL().toString());
             con.connect();
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));

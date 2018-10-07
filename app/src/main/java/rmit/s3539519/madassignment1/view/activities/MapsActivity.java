@@ -1,4 +1,4 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.activities;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -68,7 +69,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (trackingInfos.size() != 0) {
             for (TrackingInfo t : trackingInfos) {
                 routeMarker = new LatLng(t.latitude, t.longitude);
-                mMap.addMarker(new MarkerOptions().position(routeMarker).title("Route Marker for "  + trackable.getName()));
+                if (t.stopTime != 0) {
+                    mMap.addMarker(new MarkerOptions().position(routeMarker).title("Stop Marker for "  + trackable.getName()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                }
+                else {
+                    mMap.addMarker(new MarkerOptions().position(routeMarker).title("Route Marker for "  + trackable.getName()));
+                }
                 builder.include(routeMarker);
 
 

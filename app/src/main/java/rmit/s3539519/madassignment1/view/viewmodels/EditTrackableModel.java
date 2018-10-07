@@ -13,6 +13,7 @@ public class EditTrackableModel
 {
 
 
+    private TextView suggestionIdHidden;
     private TextView validTimeList;
     private TextView title;
     private EditText meetingTime;
@@ -29,6 +30,7 @@ public class EditTrackableModel
         validTimeList = context.findViewById(R.id.validTimeList);
         cancel = context.findViewById(R.id.edit_tracking_cancel_button);
         save = context.findViewById(R.id.edit_tracking_save_button);
+        suggestionIdHidden = context.findViewById(R.id.suggestionIdHidden);
 
         listener = new EditTrackingButtonListener(context, this);
         cancel.setOnClickListener(listener);
@@ -49,5 +51,9 @@ public class EditTrackableModel
 
     public void setValidTimeList(TextView validTimeList) {
         this.validTimeList = validTimeList;
+    }
+
+    public TextView getSuggestionIdHidden() {
+        return suggestionIdHidden;
     }
 }

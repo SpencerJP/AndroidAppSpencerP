@@ -14,7 +14,7 @@ import rmit.s3539519.madassignment1.model.services.Observer;
 import rmit.s3539519.madassignment1.model.Tracking;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
 import rmit.s3539519.madassignment1.model.services.TrackingService;
-import rmit.s3539519.madassignment1.view.EditTrackingActivity;
+import rmit.s3539519.madassignment1.view.activities.EditTrackingActivity;
 import rmit.s3539519.madassignment1.model.exceptions.TrackingNotValidException;
 import rmit.s3539519.madassignment1.view.viewmodels.EditTrackableModel;
 
@@ -35,9 +35,10 @@ public class EditTrackingButtonListener implements View.OnClickListener {
             try {
                 String title = editView.getTitle().getText().toString();
                 Date meetingTime = validateTime(editView.getMeetingTime().getText().toString());
+                String suggestionId = editView.getSuggestionIdHidden().getText().toString();
 
                 try {
-                    addTracking(title, meetingTime, context.getId());
+                    addTracking(title, meetingTime, context.getId(), suggestionId);
 
                     context.finish();
                 }
@@ -62,7 +63,7 @@ public class EditTrackingButtonListener implements View.OnClickListener {
             return finalTime;
     }
 
-    private void addTracking(String title, Date meetingTime, String id) throws TrackingNotValidException {
+    private void addTracking(String title, Date meetingTime, String id, String suggestionId) throws TrackingNotValidException {
 
         if ((title.equals(null)) || (title.equals("")) ) {
             throw new TrackingNotValidException("Nothing in the 'Title' field.");
@@ -73,7 +74,13 @@ public class EditTrackingButtonListener implements View.OnClickListener {
         }
         Date startTime = period.date;
         Date endTime = new Date(period.date.getTime() + (60000 * period.stopTime));
-        Tracking tracking = new Tracking(Integer.parseInt(id), title, startTime, endTime, meetingTime);
-        Observer.getSingletonInstance(context).addTracking(tracking);
+        if(suggestionId.equals("-1")) {
+            Tracking tracking = new Tracking(Integer.parseInt(id), title, startTime, endTime, meetingTime);
+            Observer.getSingletonInstance(context).addTracking(tracking);
+        }
+        else {
+            Tracking tracking = new Tracking(Integer.parseInt(id), title, startTime, endTime, meetingTime, suggestionId);
+            Observer.getSingletonInstance(context).addTracking(tracking);
+        }
     }
 }

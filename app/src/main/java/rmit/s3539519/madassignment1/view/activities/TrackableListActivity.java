@@ -1,18 +1,16 @@
-package rmit.s3539519.madassignment1.view;
+package rmit.s3539519.madassignment1.view.activities;
 
 import android.Manifest;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,24 +44,11 @@ public class TrackableListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // load trackable list from txt file
         trackables = new HashMap<Integer, AbstractTrackable>();
+
+
         observer = Observer.getSingletonInstance(this);
+        observer.initialize(); // stuff that should only happen on program creation
 
-        observer.createSQLTables();
-        observer.importData();
-
-        intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        this.registerReceiver(new ConnectivityDetector(), intentFilter);
-
-        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-        this.requestPermissions(perms, 5919);
-
-        SuggestionAlarm suggestionAlarm = new SuggestionAlarm();
-        observer.setSuggestionAlarm(suggestionAlarm);
-        suggestionAlarm.setAlarm(this);
-
-        NotificationAlarm notificationAlarm = new NotificationAlarm();
-        observer.setNotificationAlarm(notificationAlarm);
-        notificationAlarm.setAlarm(this);
 
     }
 

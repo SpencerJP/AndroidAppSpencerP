@@ -7,8 +7,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
 
 import rmit.s3539519.madassignment1.R;
-import rmit.s3539519.madassignment1.view.TrackableListActivity;
-import rmit.s3539519.madassignment1.view.TrackingListActivity;
+import rmit.s3539519.madassignment1.view.activities.TrackableListActivity;
+import rmit.s3539519.madassignment1.view.activities.TrackingListActivity;
 
 public class NavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
 

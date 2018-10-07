@@ -1,7 +1,11 @@
 package rmit.s3539519.madassignment1.model.services;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.IntentFilter;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 import java.text.DateFormat;
@@ -17,12 +21,16 @@ import java.util.Set;
 
 import rmit.s3539519.madassignment1.R;
 import rmit.s3539519.madassignment1.model.AbstractTrackable;
+import rmit.s3539519.madassignment1.model.DistanceMatrixModel;
+import rmit.s3539519.madassignment1.model.broadcastreceivers.ConnectivityDetector;
 import rmit.s3539519.madassignment1.model.broadcastreceivers.NotificationAlarm;
+import rmit.s3539519.madassignment1.model.utilities.DistanceMatrixAPIThreadForTracking;
 import rmit.s3539519.madassignment1.model.utilities.Importer;
 import rmit.s3539519.madassignment1.model.Suggestion;
 import rmit.s3539519.madassignment1.model.Tracking;
 import rmit.s3539519.madassignment1.model.TrackingInfo;
 import rmit.s3539519.madassignment1.model.broadcastreceivers.SuggestionAlarm;
+import rmit.s3539519.madassignment1.model.utilities.LocationTracker;
 import rmit.s3539519.madassignment1.model.utilities.SQLiteConnection;
 import rmit.s3539519.madassignment1.model.utilities.TrackingDatabaseThread;
 import rmit.s3539519.madassignment1.view.viewmodels.SuggestionAdapter;
@@ -31,6 +39,7 @@ import rmit.s3539519.madassignment1.view.viewmodels.TrackingAdapter;
 
 public class Observer {
     private static final long MILLISECONDS_IN_A_MINUTE = 60000;
+    private boolean initializationOccurred = false;
     private Context context;
     private Map<Integer, AbstractTrackable> trackables = new HashMap<Integer, AbstractTrackable>();
     private Map<Integer, Tracking> trackings = new HashMap<Integer, Tracking>();
@@ -41,12 +50,45 @@ public class Observer {
     private SuggestionAdapter suggestionAdapter;
     private SuggestionAlarm suggestionAlarm;
     private NotificationAlarm notificationAlarm;
+    private LocationManager locationManager;
+    private LocationTracker locationTracker;
     private int nextNotificationId = 0;
 
     // empty constructor
     private Observer() {
     }
 
+    // a bit of a pseudo constructor
+    public void initialize() {
+        if (initializationOccurred) { // prevent this from happening more than once
+            return;
+        }
+        else {
+
+            String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+            ((Activity) context).requestPermissions(perms, 5919);
+            initializeLocationObjects();
+            createSQLTables();
+            importData();
+
+            IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+            context.registerReceiver(new ConnectivityDetector(), intentFilter);
+
+            SuggestionAlarm suggestionAlarm = new SuggestionAlarm();
+            setSuggestionAlarm(suggestionAlarm);
+            suggestionAlarm.setAlarm(context);
+
+            NotificationAlarm notificationAlarm = new NotificationAlarm();
+            setNotificationAlarm(notificationAlarm);
+            notificationAlarm.setAlarm(context);
+            initializationOccurred = true;
+        }
+    }
+
+    public void initializeLocationObjects() {
+        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        locationTracker = new LocationTracker(context, locationManager);
+    }
     public void createSQLTables() {
         SQLiteConnection conn = new SQLiteConnection(context);
         conn.createTablesIfTheyDontExist();
@@ -54,9 +96,6 @@ public class Observer {
 
     public void setSuggestionAdapter(SuggestionAdapter suggestionAdapter) {
         this.suggestionAdapter = suggestionAdapter;
-    }
-
-    public void addTrackingFromSuggestion(int id) {
     }
 
     public void setSuggestionAlarm(SuggestionAlarm suggestionAlarm) {
@@ -77,6 +116,27 @@ public class Observer {
 
     public int getNextNotificationId() {
         return nextNotificationId++;
+    }
+
+    // adds DistanceMatrix stuff back to tracking after load, since it can't really be stored
+    public void addMissingDetailsToTracking(Tracking tracking, DistanceMatrixModel returnValue) {
+        tracking = getTrackingById(Integer.parseInt(tracking.getTrackingId()));
+        tracking.setDistance(returnValue.getDistanceInMetres());
+        tracking.setTimeUntilLocation(returnValue.getTimeDifference());
+        ((Activity) context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Observer.getSingletonInstance().updateViews();
+            }
+        });
+    }
+
+    public LocationManager getLocationManager() {
+        return locationManager;
+    }
+
+    public LocationTracker getLocationTracker() {
+        return locationTracker;
     }
 
     // cloned singleton methods from Casper's TrackingService.java
@@ -148,11 +208,39 @@ public class Observer {
 
 
     public void addTracking(Tracking tracking) {
+            requestMissingDetails(tracking);
             trackings.put(Integer.parseInt(tracking.getTrackingId()), tracking);
             tracking.save((Activity) context); // add it to the database
             if (trackingAdapter != null) {
                 trackingAdapter.updateTrackings(trackings);
             }
+    }
+
+    private void requestMissingDetails(Tracking tracking) {
+
+        double sourceLat = locationTracker.getLatitude();
+        double sourceLong = locationTracker.getLongitude();
+        double destLat = tracking.getLatitude(context);
+        double destLong = tracking.getLongitude(context);
+        AbstractTrackable trackable = getTrackableById(tracking.getTrackableId());
+
+        DistanceMatrixAPIThreadForTracking thread = new DistanceMatrixAPIThreadForTracking(context,trackable, sourceLat, sourceLong, destLat, destLong, tracking);
+        Thread t = new Thread(thread);
+        t.start();
+    }
+
+    public void requestMissingDetailsForAllTrackings() {
+        for(Map.Entry<Integer, Tracking> entry : trackings.entrySet()) {
+            double sourceLat = locationTracker.getLatitude();
+            double sourceLong = locationTracker.getLongitude();
+            double destLat = entry.getValue().getLatitude(context);
+            double destLong = entry.getValue().getLongitude(context);
+            AbstractTrackable trackable = getTrackableById(entry.getValue().getTrackableId());
+
+            DistanceMatrixAPIThreadForTracking thread = new DistanceMatrixAPIThreadForTracking(context,trackable, sourceLat, sourceLong, destLat, destLong, entry.getValue());
+            Thread t = new Thread(thread);
+            t.start();
+        }
     }
 
     public void addSuggestion(Suggestion suggestion) {
@@ -168,6 +256,9 @@ public class Observer {
             if (suggestionAdapter != null) {
                 suggestionAdapter.updateSuggestions(suggestions);
             }
+        }
+        if (suggestionAdapter != null) {
+            suggestionAdapter.updateSuggestions(suggestions);
         }
     }
 

@@ -27,7 +27,6 @@ public class DialogBoxListener implements DialogInterface.OnClickListener {
         }
 
         if (type.equals("positive_suggestion_add")) {
-            Observer.getSingletonInstance(context).addTrackingFromSuggestion(id);
             Toast.makeText(context, "The suggestion was deleted.", Toast.LENGTH_SHORT).show();
         }
         if (type.equals("negative_suggestion_add")) {
