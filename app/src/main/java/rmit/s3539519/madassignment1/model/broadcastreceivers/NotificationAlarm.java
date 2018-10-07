@@ -75,14 +75,13 @@ public class NotificationAlarm extends BroadcastReceiver {
         PendingIntent reminderPendingIntent =
                 PendingIntent.getBroadcast(context, 0, reminderIntent, 0);
         int reminderMinutes = 5;
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context, channelId)
-                        .setSmallIcon(R.drawable.ic_directions_car_black_24dp)
-                        .setContentTitle("Geotracker")
-                        .setContentText(String.format("There are %d pending suggestions!", suggestionCount))
-                        .setContentIntent(suggestionListPending)
-                        .addAction(R.drawable.ic_snooze_black_24dp, String.format(context.getString(R.string.reminder), reminderMinutes),
-                                reminderPendingIntent);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channelId);
+        mBuilder.setSmallIcon(R.drawable.ic_directions_car_black_24dp);
+        mBuilder.setContentTitle("Geotracker");
+        mBuilder.setContentText(String.format("There are %d pending suggestions!", suggestionCount));
+        mBuilder.setContentIntent(suggestionListPending);
+        mBuilder.addAction(R.drawable.ic_snooze_black_24dp, "remind", reminderPendingIntent);
+        mBuilder.setAutoCancel(true);
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 

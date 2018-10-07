@@ -17,7 +17,7 @@ public class NotificationReminderAlarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String channelId = "s3539519_geotracker";
-        Observer.getSingletonInstance(context).getSuggestions().size(); 
+        Observer.getSingletonInstance(context).getSuggestions().size();
         this.cancelAlarm(context);
     }
 
