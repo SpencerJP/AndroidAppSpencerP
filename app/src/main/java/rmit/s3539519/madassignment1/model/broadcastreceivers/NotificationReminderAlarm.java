@@ -15,7 +15,6 @@ import rmit.s3539519.madassignment1.view.activities.SuggestionListActivity;
 
 // class the issues the reminder notification
 public class NotificationReminderAlarm extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
         String channelId = "s3539519_geotracker";

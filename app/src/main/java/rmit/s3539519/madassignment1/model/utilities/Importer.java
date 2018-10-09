@@ -87,7 +87,7 @@ public class Importer implements Runnable {
             Observer.getSingletonInstance(context).requestMissingDetailsForAllTrackings();
         }
         else {
-            Observer.getSingletonInstance(context).seedTrackings();
+            //Observer.getSingletonInstance(context).seedTrackings();
             for(Map.Entry<Integer, Tracking> entry : Observer.getSingletonInstance(context).getTrackings().entrySet()) {
                 sqlObj.createTracking(entry.getValue());
             }
