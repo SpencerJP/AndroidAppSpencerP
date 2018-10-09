@@ -15,9 +15,12 @@ import rmit.s3539519.madassignment1.view.activities.SuggestionListActivity;
 
 // class the issues the reminder notification
 public class NotificationReminderAlarm extends BroadcastReceiver {
-
+    public boolean skipFirstOnReceive = true;
     @Override
     public void onReceive(Context context, Intent intent) {
+        if(skipFirstOnReceive) {
+            skipFirstOnReceive = false;
+        }
         String channelId = "s3539519_geotracker";
         sendNotification(context, channelId, Observer.getSingletonInstance(context).getSuggestions().size());
         this.cancelAlarm(context);
